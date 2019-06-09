@@ -1,9 +1,11 @@
 package com.codingshadows.focustimekeeper;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ public class UserProfileActivity extends AppCompatActivity {
     String charactersOwned = "";
     long highestFocusTime = 0;
     String focusCoins = "";
+    String uid = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,12 @@ public class UserProfileActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
+
+        Intent intent = getIntent();
+        if(intent.getStringExtra("ID") != null)
+        {
+            uid = intent.getStringExtra("ID");
+        }
         hideAll();
         getData();
 
@@ -66,7 +75,8 @@ public class UserProfileActivity extends AppCompatActivity {
                 }
             });
         } catch (Exception e) {
-            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, e.toString() + "  " + uid, Toast.LENGTH_LONG).show();
+            Log.d("error", e.toString() + "  " + uid);
         }
 
     }
@@ -157,8 +167,12 @@ public class UserProfileActivity extends AppCompatActivity {
 
 
     private String getUID() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        return user.getUid();
+        if(!uid.equals("")) return uid;
+        else
+        {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            return user.getUid();
+        }
     }
 
     //region badges stuff (display)
