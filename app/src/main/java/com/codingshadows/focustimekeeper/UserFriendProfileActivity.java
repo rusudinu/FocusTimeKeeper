@@ -14,8 +14,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -113,7 +111,7 @@ public class UserFriendProfileActivity extends AppCompatActivity {
 
     private void hideAll() {
         hideVerifiedBadge();
-        TextView usernameTV = findViewById(R.id.usernameTextView);
+        TextView usernameTV = findViewById(R.id.titleTextView);
         usernameTV.setVisibility(View.INVISIBLE);
         TextView highestFocusTimeTV = findViewById(R.id.highestTimeTextView);
         highestFocusTimeTV.setVisibility(View.INVISIBLE);
@@ -131,7 +129,7 @@ public class UserFriendProfileActivity extends AppCompatActivity {
         searchBT.setVisibility(View.INVISIBLE);
         TextView focusPointsTV = findViewById(R.id.focusPointsTextView);
         focusPointsTV.setVisibility(View.VISIBLE);
-        TextView usernameTV = findViewById(R.id.usernameTextView);
+        TextView usernameTV = findViewById(R.id.titleTextView);
         usernameTV.setVisibility(View.VISIBLE);
         usernameTV.setText(username);
         showVerifiedBadge();

@@ -42,7 +42,6 @@ public class LoadingScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading_screen);
 
 
-        //verific daca aplicatia a fost alterata sau nu
 
         if(checkCrack()) //TODO ENABLE.DISABLE
         {
@@ -50,29 +49,19 @@ public class LoadingScreenActivity extends AppCompatActivity {
          // finishAffinity();
         }
 
-        new CountDownTimer(200, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-
-            }
-
-            public void onFinish() {
-                checkStorage();
-            }
-        }.start();
-
+        checkStorage();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) { // permisiunea a fost acceptata
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             checkPrivacyPol();
         }
     }
 
 
-    private void checkStorage() { // verific daca am permisiunea de a accesa memoria telefonului
+    private void checkStorage() {
         if (ContextCompat.checkSelfPermission(LoadingScreenActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             if (ContextCompat.checkSelfPermission(LoadingScreenActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(LoadingScreenActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
@@ -85,7 +74,7 @@ public class LoadingScreenActivity extends AppCompatActivity {
         }
     }
 
-    private void checkPrivacyPol() { // verific daca a fost acceptata politica de confidentialitate
+    private void checkPrivacyPol() {
         Boolean b1 = Boolean.valueOf(readFileAsString(Class_FileLocations.privacyPolicyAccepted));
         if (b1) {
             checkForExisting(); // check for an existing account

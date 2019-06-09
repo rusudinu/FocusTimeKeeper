@@ -59,6 +59,14 @@ public class MenuActivity extends AppCompatActivity {
         });
 
 
+        TextView shopBT = findViewById(R.id.shopTextView);
+        shopBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showShop();
+            }
+        });
+
         TextView settingsBT = findViewById(R.id.settingsTextView);
         settingsBT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,4 +153,13 @@ private void showFriendProfile()
         startActivity(intent);
         finish();
     }
+
+    private void showShop()
+    {
+        Intent intent = new Intent(MenuActivity.this, ShopActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
+
+

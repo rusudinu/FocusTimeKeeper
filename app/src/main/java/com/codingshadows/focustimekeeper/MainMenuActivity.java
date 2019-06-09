@@ -48,7 +48,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     int pastDay = 0;
-    private static String[] sortVector = new String[10000]; // pun pe pozitia ora de start id-ul documentului
+    private static String[] sortVector = new String[10000];
     private TextView quoteTV;
     private static String UID = "";
     private int spamProtect = 0;
@@ -586,11 +586,9 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
 
 
     private void showActivities() {
-        Log.d("showActivities", "we are here");
         for (int i = 1; i < sortVector.length; i++) {
             try {
                 if (!sortVector[i].equals("")) {
-                    Log.d("showActivities", "" + i + " has data");
                     String data = sortVector[i];
                     String[] splitData;
                     splitData = data.split("\\*");

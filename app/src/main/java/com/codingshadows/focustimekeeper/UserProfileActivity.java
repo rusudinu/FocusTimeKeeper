@@ -1,16 +1,11 @@
 package com.codingshadows.focustimekeeper;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.media.Image;
 import android.os.CountDownTimer;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,11 +14,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
-
-import java.util.Objects;
 
 public class UserProfileActivity extends AppCompatActivity {
 
@@ -51,7 +41,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private void getData() {
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
         try {
             db.collection("Users").document(getUID()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
@@ -64,7 +54,14 @@ public class UserProfileActivity extends AppCompatActivity {
                     charactersOwned = documentSnapshot.get("Characters owned").toString();
                     highestFocusTime = Long.valueOf(documentSnapshot.get("Highest time").toString());
                     currentBadge = documentSnapshot.get("Current badge").toString();
-                //    focusCoins = Objects.requireNonNull(documentSnapshot.get("Focus coins")).toString();
+                    if(documentSnapshot.get("Focus coins") != null)
+                    {
+                        focusCoins = documentSnapshot.get("Focus coins").toString();
+                    }
+                    else
+                    {
+                        db.collection("Users").document(getUID()).update("Focus coins","");
+                    }
                     showAll();
                 }
             });
@@ -74,10 +71,20 @@ public class UserProfileActivity extends AppCompatActivity {
 
     }
 
+    private void displayFocusCoins()
+    {
+        if(focusCoins.contains("Archer coin"))
+        {
+            ImageView imv = findViewById(R.id.focusCoinImageView);
+            imv.setVisibility(View.VISIBLE);
+        }
+    }
+
+
 
     private void hideAll() {
         hideVerifiedBadge();
-        TextView usernameTV = findViewById(R.id.usernameTextView);
+        TextView usernameTV = findViewById(R.id.titleTextView);
         usernameTV.setVisibility(View.INVISIBLE);
         TextView highestFocusTimeTV = findViewById(R.id.highestTimeTextView);
         highestFocusTimeTV.setVisibility(View.INVISIBLE);
@@ -85,20 +92,22 @@ public class UserProfileActivity extends AppCompatActivity {
         badgeTV.setVisibility(View.INVISIBLE);
         TextView focusPointsTV = findViewById(R.id.focusPointsTextView);
         focusPointsTV.setVisibility(View.INVISIBLE);
+        ImageView imv = findViewById(R.id.focusCoinImageView);
+        imv.setVisibility(View.INVISIBLE);
 
     }
 
     private void showAll() {
         TextView focusPointsTV = findViewById(R.id.focusPointsTextView);
         focusPointsTV.setVisibility(View.VISIBLE);
-        TextView usernameTV = findViewById(R.id.usernameTextView);
+        TextView usernameTV = findViewById(R.id.titleTextView);
         usernameTV.setVisibility(View.VISIBLE);
         usernameTV.setText(username);
         showVerifiedBadge();
         showBadge();
         showHighestTime();
         showFocusPoints();
-        //MAKE SURE IT'S THE LAST ONE
+        displayFocusCoins();
     }
 
     private void showHighestTime() {
@@ -187,7 +196,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private int currentFocusPoints = 0;
 
     private void animateFocusPoints() {
-        new CountDownTimer(1, 1) { // todo add some 0's
+        new CountDownTimer(1, 1) {
 
             public void onTick(long millisUntilFinished) {
 
