@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/gradient_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/settingsTitle1" />
+
+            <TextView
+                android:id="@+id/settingsTitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/muli_semibold"
+                android:gravity="center"
+                android:text="Cont si securitate"
+                android:textColor="@color/backgroundWhite"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@id/view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/privacyPolicyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:drawableLeft="@drawable/ic_security_white"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/muli_semibold"
+                android:gravity="center"
+                android:text="Politica de confidentialitate"
+                android:textColor="@color/backgroundWhite"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/newActivityTextView" />
+
+            <TextView
+                android:id="@+id/permissionsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:drawableLeft="@drawable/ic_security_white"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/muli_semibold"
+                android:gravity="center"
+                android:text="Detalii despre permisiuni"
+                android:textColor="@color/backgroundWhite"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/privacyPolicyTextView" />
+
+
+            <TextView
+                android:id="@+id/documentationTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:drawableLeft="@drawable/ic_badge_white"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/muli_semibold"
+                android:gravity="center"
+                android:text="Documentatia aplicatiei"
+                android:textColor="@color/backgroundWhite"
+                android:textSize="18sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deleteAccountTextView" />
+
+            <TextView
+                android:id="@+id/deleteAccountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:drawableLeft="@drawable/ic_delete_white"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/muli_semibold"
+                android:gravity="center"
+                android:text="Sterge cont"
+                android:textColor="@color/backgroundWhite"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/permissionsTextView" />
+
+            <TextView
+                android:id="@+id/newActivityTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:drawableLeft="@drawable/ic_logout_white"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/muli_semibold"
+                android:gravity="center"
+                android:text="Delogare"
+                android:textColor="@color/backgroundWhite"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:drawableLeft="@drawable/ic_settings_white_24dp"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/muli_semibold"
+        android:gravity="center"
+        android:text="Setari"
+        android:textColor="@color/backgroundWhite"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

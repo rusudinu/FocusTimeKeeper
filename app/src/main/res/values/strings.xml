@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Focus: Time Keeper</string>
+    <string name="title_activity_stay_focused">StayFocusedActivity</string>
+</resources>

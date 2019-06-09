@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    tools:context=".RegisterActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/contactTextView"
+        tools:layout_editor_absoluteX="-518dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/emailEditText_REGISTER"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/backgroundWhite"
+                android:drawableLeft="@drawable/username_custom_edittext"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="@font/muli_semibold"
+                android:hint="Email"
+                android:inputType="textPersonName"
+                android:textColor="@color/backgroundWhite"
+                android:textColorHint="@color/backgroundWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/passwordEditText_REGISTER"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/backgroundWhite"
+                android:drawableLeft="@drawable/password_custom_edittext"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="@font/muli_semibold"
+                android:hint="Parola"
+                android:inputType="textPassword"
+                android:textColor="@color/backgroundWhite"
+                android:textColorHint="@color/backgroundWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailEditText_REGISTER" />
+
+            <EditText
+                android:id="@+id/password2EditText_REGISTER"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/backgroundWhite"
+                android:drawableLeft="@drawable/password_custom_edittext"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="@font/muli_semibold"
+                android:hint="Confirma parola"
+                android:inputType="textPassword"
+                android:textColor="@color/backgroundWhite"
+                android:textColorHint="@color/backgroundWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordEditText_REGISTER" />
+
+            <EditText
+                android:id="@+id/serviceNumberEditText_REGISTER"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/backgroundWhite"
+                android:drawableLeft="@drawable/password_custom_edittext"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="@font/muli_semibold"
+                android:hint="Nume utilizator"
+                android:inputType="text"
+                android:textColor="@color/backgroundWhite"
+                android:textColorHint="@color/backgroundWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password2EditText_REGISTER" />
+
+            <Button
+                android:id="@+id/registerButton_REGISTER"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/my_custom_touch_button"
+                android:fontFamily="@font/muli_semibold"
+                android:text="Inregistrare"
+                android:textAllCaps="false"
+                android:textColor="@drawable/color_button"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/serviceNumberEditText_REGISTER" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/contactTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/muli_semibold"
+        android:text="Focus: Time Keeper - Inregistrare"
+        android:textColor="@color/backgroundWhite"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="80dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cslogowhite" />
+</android.support.constraint.ConstraintLayout>

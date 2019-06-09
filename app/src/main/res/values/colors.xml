@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#16E2CE</color>
+    <color name="colorPrimaryDark">#08324F</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <color name="backgroundWhite">#FFFFFF</color>
+    <color name="colorAccent2">#12897D</color>
+    <color name="colorAccent3">#095C58</color>
+
+
+    <color name="circleRed">#CF1111</color>
+
+    <color name="loginScreenBackgroudStart">#08324F</color>
+    <color name="loginScreenBackgroundEnd">#08324F</color>
+    <color name="loginScreenBackgroundMiddle">#1C5A86</color>
+    <color name="loginScreenContrastColor">#16E2CE</color>
+
+    <color name="messageBackgroudStart">#9DF1FA</color>
+    <color name="messageBackgroundEnd">#9DF1FA</color>
+    <color name="messageBackgroundMiddle">#FFFFFF</color>
+    <color name="messageContrastColor">#08324F</color>
+
+    <color name="menuStartColor">#062942</color>
+    <color name="menuEndColor">#062942</color>
+    <color name="menuMiddleColor">#0B3D61</color>
+</resources>

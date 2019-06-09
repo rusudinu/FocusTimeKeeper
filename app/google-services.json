@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "574912797528",
+    "firebase_url": "https://focus-time-keeper.firebaseio.com",
+    "project_id": "focus-time-keeper",
+    "storage_bucket": "focus-time-keeper.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574912797528:android:e4a778a7be87a27d",
+        "android_client_info": {
+          "package_name": "com.codingshadows.focustimekeeper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574912797528-b1vmculqc8j49so57at57jf51ia55s10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASqPJ33e6IFrmsKxpZ6bpel-iU5rnYRSk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574912797528-b1vmculqc8j49so57at57jf51ia55s10.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

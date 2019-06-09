@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    tools:context=".LoginRegisterActivity">
+
+    <Button
+        android:id="@+id/registerButton_REGISTER"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/my_custom_touch_button"
+        android:fontFamily="@font/muli_semibold"
+        android:text="Conecteaza-te!"
+        android:textAllCaps="false"
+        android:textColor="@drawable/color_button"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newActivityTextView" />
+
+    <Button
+        android:id="@+id/registerButton_LOGIN"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/my_custom_touch_button"
+        android:fontFamily="@font/muli_semibold"
+        android:text="Inregistrare"
+        android:textAllCaps="false"
+        android:textColor="@drawable/color_button"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerButton_REGISTER" />
+
+    <EditText
+        android:id="@+id/emailEditText_REGISTER"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/backgroundWhite"
+        android:drawableLeft="@drawable/username_custom_edittext"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:fontFamily="@font/muli_semibold"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        android:textColor="@color/backgroundWhite"
+        android:textColorHint="@color/backgroundWhite"
+        app:layout_constraintBottom_toTopOf="@+id/passwordEditText_REGISTER"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/passwordEditText_REGISTER"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/backgroundWhite"
+        android:drawableLeft="@drawable/password_custom_edittext"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:fontFamily="@font/muli_semibold"
+        android:hint="Parola"
+        android:inputType="textPassword"
+        android:textColor="@color/backgroundWhite"
+        android:textColorHint="@color/backgroundWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/progressTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/muli_semibold"
+        android:textColor="@color/backgroundWhite"
+        android:textSize="17dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/emailEditText_REGISTER"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/contactTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/muli_semibold"
+        android:text="Focus: Time Keeper"
+        android:textColor="@color/backgroundWhite"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/progressTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/newActivityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/muli_semibold"
+        android:text="Ai uitat parola?"
+        android:textColor="@color/backgroundWhite"
+        android:textColorHint="@color/backgroundWhite"
+        android:textSize="17dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEditText_REGISTER" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="130dp"
+        android:layout_height="126dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/contactTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/cslogowhite" />
+
+</android.support.constraint.ConstraintLayout>
