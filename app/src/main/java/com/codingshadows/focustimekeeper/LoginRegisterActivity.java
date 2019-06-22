@@ -13,10 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -102,22 +105,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {  // logged in !
                     showProgress("Getting your data ... ");
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();  // get user data
-                    boolean emailVerified = user.isEmailVerified();
-
-                    if (!emailVerified) {
-                        Intent intent = new Intent(LoginRegisterActivity.this, VerifyEmailActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        writeStringAsFile("true", Class_FileLocations.rememberUserFile);
-                        writeStringAsFile(password, Class_FileLocations.userPassword);
-                        writeStringAsFile(email, Class_FileLocations.userUsername);
-
-                            Intent intent = new Intent(LoginRegisterActivity.this, MainMenuActivity.class);
-                            startActivity(intent);
-                            finish();
-
-                    }
+                    checkEmail(user.getEmail(), password);
                 } else {
                     showProgress("Login failed !");
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -126,6 +114,31 @@ public class LoginRegisterActivity extends AppCompatActivity {
         });
     }
 
+    private void checkEmail(final String email, final String password)
+    {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("LIST").document("GREEN").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                String x = documentSnapshot.get("Email").toString();
+                if(x.contains(email))
+                {
+                    writeStringAsFile("true", Class_FileLocations.rememberUserFile);
+                    writeStringAsFile(password, Class_FileLocations.userPassword);
+                    writeStringAsFile(email, Class_FileLocations.userUsername);
+
+                    Intent intent = new Intent(LoginRegisterActivity.this, MainMenuActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else
+                {
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                    finishAffinity();
+                }
+            }
+        });
+    }
 
     private void register() {
         Intent intent = new Intent(LoginRegisterActivity.this, RegisterActivity.class);

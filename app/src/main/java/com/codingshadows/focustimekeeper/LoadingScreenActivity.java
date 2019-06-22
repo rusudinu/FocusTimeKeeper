@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -111,13 +112,12 @@ public class LoadingScreenActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         String installer = context.getPackageManager().getInstallerPackageName(context.getPackageName());
 
-        if(BuildConfig.DEBUG) // verific daca a fost pronita cu flag de debug, astfel ingreunez reverse reverse engineering
+        if(BuildConfig.DEBUG)
         {
-            //it's not a release version
             return true;
         }
 
-        try { //verific daca are acelasi package name
+        try {
             if (!context.getPackageName().equals("com.codingshadows.focustimekeeper")) {
                 return true;
             }
@@ -125,7 +125,7 @@ public class LoadingScreenActivity extends AppCompatActivity {
         } catch (Exception e) {
 
         }
-        try { // verific daca a fost instalata din google play sau nu
+        try {
             if (!String.valueOf(installer).equals("")) {
                 if (!installer.startsWith("com.android.vending")) {
                     return true;
@@ -139,7 +139,6 @@ public class LoadingScreenActivity extends AppCompatActivity {
         return false;
     }
 
-    //verific daca exista un cont sau nu
     private void checkForExisting() {
         final String email_sure = readFileAsString(Class_FileLocations.userUsername);
         final String password_sure = readFileAsString(Class_FileLocations.userPassword);
@@ -149,22 +148,9 @@ public class LoadingScreenActivity extends AppCompatActivity {
             mAuth.signInWithEmailAndPassword(email_sure, password_sure).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {  //logged in!
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();  // get user data
-                        boolean emailVerified = Objects.requireNonNull(user).isEmailVerified();
-                        if (!emailVerified) {
-                            Intent intent = new Intent(LoadingScreenActivity.this, VerifyEmailActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Intent intent = new Intent(LoadingScreenActivity.this, MainMenuActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    } else {
-                        Intent intent = new Intent(LoadingScreenActivity.this, LoginRegisterActivity.class);
-                        startActivity(intent);
-                        finish();
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        checkEmail(user.getEmail());
                     }
                 }
             });
@@ -174,6 +160,30 @@ public class LoadingScreenActivity extends AppCompatActivity {
             finish();
         }
 
+    }
+
+
+
+    private void checkEmail(final String email)
+    {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("LIST").document("GREEN").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+              String x = documentSnapshot.get("Email").toString();
+              if(x.contains(email))
+              {
+                  Intent intent = new Intent(LoadingScreenActivity.this, MainMenuActivity.class);
+                  startActivity(intent);
+                  finish();
+              }
+              else
+              {
+                  android.os.Process.killProcess(android.os.Process.myPid());
+                  finishAffinity();
+              }
+            }
+        });
     }
 
 }
