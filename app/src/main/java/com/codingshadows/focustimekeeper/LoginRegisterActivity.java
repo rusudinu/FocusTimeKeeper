@@ -105,24 +105,6 @@ public class LoginRegisterActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {  // logged in !
                     showProgress("Getting your data ... ");
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();  // get user data
-                    checkEmail(user.getEmail(), password);
-                } else {
-                    showProgress("Login failed !");
-                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
-
-    private void checkEmail(final String email, final String password)
-    {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("LIST").document("GREEN").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                String x = documentSnapshot.get("Email").toString();
-                if(x.contains(email))
-                {
                     writeStringAsFile("true", Class_FileLocations.rememberUserFile);
                     writeStringAsFile(password, Class_FileLocations.userPassword);
                     writeStringAsFile(email, Class_FileLocations.userUsername);
@@ -130,11 +112,9 @@ public class LoginRegisterActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginRegisterActivity.this, MainMenuActivity.class);
                     startActivity(intent);
                     finish();
-                }
-                else
-                {
-                    android.os.Process.killProcess(android.os.Process.myPid());
-                    finishAffinity();
+                } else {
+                    showProgress("Login failed !");
+                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });

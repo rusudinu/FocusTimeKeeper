@@ -46,8 +46,8 @@ public class LoadingScreenActivity extends AppCompatActivity {
 
         if(checkCrack()) //TODO ENABLE.DISABLE
         {
-         // android.os.Process.killProcess(android.os.Process.myPid());
-         // finishAffinity();
+          android.os.Process.killProcess(android.os.Process.myPid());
+          finishAffinity();
         }
 
         checkStorage();
@@ -149,8 +149,9 @@ public class LoadingScreenActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        checkEmail(user.getEmail());
+                        Intent intent = new Intent(LoadingScreenActivity.this, MainMenuActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }
             });
@@ -161,29 +162,4 @@ public class LoadingScreenActivity extends AppCompatActivity {
         }
 
     }
-
-
-
-    private void checkEmail(final String email)
-    {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("LIST").document("GREEN").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-              String x = documentSnapshot.get("Email").toString();
-              if(x.contains(email))
-              {
-                  Intent intent = new Intent(LoadingScreenActivity.this, MainMenuActivity.class);
-                  startActivity(intent);
-                  finish();
-              }
-              else
-              {
-                  android.os.Process.killProcess(android.os.Process.myPid());
-                  finishAffinity();
-              }
-            }
-        });
-    }
-
 }
