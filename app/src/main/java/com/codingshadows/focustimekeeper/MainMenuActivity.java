@@ -328,7 +328,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onSuccess(Void aVoid) {
 
-                Toast.makeText(MainMenuActivity.this, "sters cu succes!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainMenuActivity.this, "Please wait a second ...", Toast.LENGTH_SHORT).show();
                 ConstraintLayout lyt = findViewById(R.id.mConstraintLayout);
                 lyt.removeAllViews();
                 count = 0;
