@@ -80,7 +80,7 @@ public class MakeProgramActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                 deleteDocument(dayD, document.getId());
+                                deleteDocument(dayD, document.getId());
                             }
                             Toast.makeText(MakeProgramActivity.this, "Activitatile au fost sterse!", Toast.LENGTH_SHORT).show();
                         }

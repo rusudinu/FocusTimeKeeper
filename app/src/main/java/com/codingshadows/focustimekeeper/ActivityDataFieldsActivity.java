@@ -24,7 +24,7 @@ public class ActivityDataFieldsActivity extends AppCompatActivity {
         String date = intent.getStringExtra("date");
 
         //WindowManager.LayoutParams wmlp = getWindow().getAttributes();
-       // wmlp.gravity = Gravity.TOP | Gravity.RIGHT;
+        // wmlp.gravity = Gravity.TOP | Gravity.RIGHT;
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
