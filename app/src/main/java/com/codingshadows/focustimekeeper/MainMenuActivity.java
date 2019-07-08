@@ -327,8 +327,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         db.collection("PROGRAM").document(getUID()).collection(stringDateServer).document(docID).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-
-                Toast.makeText(MainMenuActivity.this, "Please wait a second ...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainMenuActivity.this, "Te rugam asteapta ...", Toast.LENGTH_SHORT).show();
                 ConstraintLayout lyt = findViewById(R.id.mConstraintLayout);
                 lyt.removeAllViews();
                 count = 0;
