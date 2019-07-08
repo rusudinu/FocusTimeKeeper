@@ -50,6 +50,8 @@ public class MakeProgramActivity extends AppCompatActivity {
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         ImageView addNewActivityIMV = findViewById(R.id.addActivityImageView);
         addNewActivityIMV.setOnClickListener(new View.OnClickListener() {
             @Override

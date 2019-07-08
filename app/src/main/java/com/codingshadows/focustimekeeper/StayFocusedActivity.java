@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
@@ -61,6 +62,7 @@ public class StayFocusedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stay_focused);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         createNotifChannel();
 
         final ProgressBar progressBar = findViewById(R.id.progressBar);
