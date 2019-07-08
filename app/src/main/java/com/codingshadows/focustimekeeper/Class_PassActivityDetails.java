@@ -6,4 +6,5 @@ public class Class_PassActivityDetails {
     static String endHour = "";
     static String details = "";
     static int activityNumber = 0;
+    static int drawableNumber = 0;
 }

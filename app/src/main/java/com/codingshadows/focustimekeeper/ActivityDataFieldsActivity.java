@@ -25,7 +25,7 @@ public class ActivityDataFieldsActivity extends AppCompatActivity {
 
         //WindowManager.LayoutParams wmlp = getWindow().getAttributes();
         // wmlp.gravity = Gravity.TOP | Gravity.RIGHT;
-
+//TODO THE DRAWABLE NUMBER
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
