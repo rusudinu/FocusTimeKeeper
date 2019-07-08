@@ -19,6 +19,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -58,6 +59,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         quoteTV = findViewById(R.id.quoteTextView);
 

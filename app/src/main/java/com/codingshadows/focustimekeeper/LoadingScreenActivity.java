@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,8 +30,6 @@ import java.io.IOException;
 
 public class LoadingScreenActivity extends AppCompatActivity {
 
-    ProgressBar progressBar;
-
     private int STORAGE_PERMISSION_CODE = 1;
     private FirebaseAuth mAuth;
     @Override
@@ -38,18 +37,13 @@ public class LoadingScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading_screen);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
-
-        progressBar = findViewById(R.id.progressBar2);
-        progressBar.setProgressTintList(ColorStateList.valueOf(Color.BLACK));
-        progressBar.setProgress(0);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         if(checkCrack()) //TODO ENABLE.DISABLE
         {
-          android.os.Process.killProcess(android.os.Process.myPid());
-          finishAffinity();
+          //android.os.Process.killProcess(android.os.Process.myPid());
+          //finishAffinity();
         }
-
-        progressBar.setProgress(10);
         checkStorage();
     }
 
@@ -63,7 +57,6 @@ public class LoadingScreenActivity extends AppCompatActivity {
 
 
     private void checkStorage() {
-        progressBar.setProgress(30);
         if (ContextCompat.checkSelfPermission(LoadingScreenActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             if (ContextCompat.checkSelfPermission(LoadingScreenActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(LoadingScreenActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
@@ -77,7 +70,6 @@ public class LoadingScreenActivity extends AppCompatActivity {
     }
 
     private void checkPrivacyPol() {
-        progressBar.setProgress(40);
         Boolean b1 = Boolean.valueOf(readFileAsString(Class_FileLocations.privacyPolicyAccepted));
         if (b1) {
             checkForExisting(); // check for an existing account
@@ -144,14 +136,12 @@ public class LoadingScreenActivity extends AppCompatActivity {
     private void checkForExisting() {
         final String email_sure = readFileAsString(Class_FileLocations.userUsername);
         final String password_sure = readFileAsString(Class_FileLocations.userPassword);
-        progressBar.setProgress(70);
         try {
             mAuth = FirebaseAuth.getInstance();
             mAuth.signInWithEmailAndPassword(email_sure, password_sure).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        progressBar.setProgress(100);
                         Intent intent = new Intent(LoadingScreenActivity.this, MainMenuActivity.class);
                         startActivity(intent);
                         finish();
