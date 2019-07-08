@@ -8,8 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -23,9 +26,14 @@ public class ActivityDataFieldsActivity extends AppCompatActivity {
         final int activityNumber = Integer.valueOf(intent.getStringExtra("message"));
         String date = intent.getStringExtra("date");
 
+        //todo change the color of the thing that is selected
+        ImageView ivVectorImage = findViewById(R.id.friendsIcon);
+        ivVectorImage.setColorFilter(getResources().getColor(R.color.colorPrimary));
+
         //WindowManager.LayoutParams wmlp = getWindow().getAttributes();
         // wmlp.gravity = Gravity.TOP | Gravity.RIGHT;
 //TODO THE DRAWABLE NUMBER
+        //TODO PICK AUTOMATICALLY BY THE KEYWORD
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);

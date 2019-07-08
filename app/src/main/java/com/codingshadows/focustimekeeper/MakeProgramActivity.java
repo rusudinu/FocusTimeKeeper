@@ -351,6 +351,31 @@ public class MakeProgramActivity extends AppCompatActivity {
         set.connect(view.getId(), ConstraintSet.RIGHT, layout.getId(), ConstraintSet.RIGHT, 60);
         set.applyTo(layout);
     }
+
+    private void drawPictogram(int code)
+    {
+        count++;
+        ConstraintLayout layout = findViewById(R.id.constraintLayoutMakeProgram);
+        ConstraintSet set = new ConstraintSet();
+        ImageView view = new ImageView(this);
+
+        if(code == 0)
+        {
+            view.setImageResource(R.drawable.ic_account_circle_white);
+        }
+        else if (code == 1)
+        {
+            view.setImageResource(R.drawable.ic_account_circle_white); // TODO ANOTHER ONE
+        }
+
+        view.setId(count);
+        layout.addView(view, 0);
+        set.clone(layout);
+        set.connect(view.getId(), ConstraintSet.TOP, count - 1, ConstraintSet.BOTTOM, 15);
+        set.connect(view.getId(), ConstraintSet.LEFT, layout.getId(), ConstraintSet.LEFT, 60);
+        set.connect(view.getId(), ConstraintSet.RIGHT, layout.getId(), ConstraintSet.RIGHT, 60);
+        set.applyTo(layout);
+    }
 //endregion
 
     private void showNotification(String notifText) {
