@@ -279,6 +279,11 @@ public class MakeProgramActivity extends AppCompatActivity {
                     db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities total", 0);
                     db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities completed", 0);
                 }
+                else if (!documentSnapshot.exists())
+                {
+                    db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities total", 0);
+                    db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities completed", 0);
+                }
             }
         });
     }
