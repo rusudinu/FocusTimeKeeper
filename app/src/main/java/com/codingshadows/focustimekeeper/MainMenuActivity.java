@@ -348,7 +348,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
        getActivitiesData(dayID);
     }
 
-    private void getActivitiesData(String dayID) //TODO UPDATE THE TOTAL NUMBER OF ACTIVITIES
+    private void getActivitiesData(String dayID) //TODO UPDATE THE TOTAL NUMBER OF ACTIVITIES WHEN A NEW ACTIVITY IS ADDED / REMOVED
     {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("PROGRAM").document(getUID()).collection(dayID).document("PERFORMANCE").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -365,12 +365,6 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-    private void updateNumberOfActivities(String dayID, int number)
-    {
-        //this function updates the number of activities for a certain day
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("PROGRAM").document(getUID()).collection(dayID).document("PERFORMANCE").update("Activities total", number + "");
-    }
 
     private String getUID() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
