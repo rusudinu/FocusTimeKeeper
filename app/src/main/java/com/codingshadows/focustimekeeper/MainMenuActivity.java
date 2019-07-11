@@ -350,7 +350,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         getActivitiesData(dayID);
     }
 
-    private void getActivitiesData(String dayID) //TODO UPDATE THE TOTAL NUMBER OF ACTIVITIES WHEN A NEW ACTIVITY IS ADDED / REMOVED
+    private void getActivitiesData(String dayID)
     {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("PROGRAM").document(getUID()).collection(dayID).document("PERFORMANCE").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -364,13 +364,12 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
                 }
             }
         });
-
         pushActivitiesData(dayID);
     }
 
     private void pushActivitiesData(String dayID) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("PROGRAM").document(getUID()).collection(dayID).document("PERFORMANCE").update("Activities completed", activitiesCompleted + "");
+        db.collection("PROGRAM").document(getUID()).collection(dayID).document("PERFORMANCE").update("Activities completed", (activitiesCompleted + 1 )+ "");
     }
 
 
