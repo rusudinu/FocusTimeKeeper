@@ -12,6 +12,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class MenuActivity extends AppCompatActivity {
 
     @Override
@@ -103,12 +105,27 @@ public class MenuActivity extends AppCompatActivity {
                  showMakeProgram();
             }
         });
+
+        TextView dailyPerformanceTV = findViewById(R.id.dailyPerformance);
+        dailyPerformanceTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPerformance();
+            }
+        });
     }
 
     @Override
     public void finish() {
         super.finish();
         overridePendingTransition(0, R.anim.exit);
+    }
+
+    private void showPerformance()
+    {
+        Intent intent = new Intent(MenuActivity.this, PerformanceActivity.class); //TODO THIS
+        startActivity(intent);
+        finish();
     }
 
     private void showMakeProgram()
