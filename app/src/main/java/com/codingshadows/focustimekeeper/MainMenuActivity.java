@@ -10,11 +10,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -343,9 +345,9 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
 
     int activitiesCompleted = 0;
     int totalActivities = 0;
-    private void updatePerformance(String dayID)
-    {
-       getActivitiesData(dayID);
+
+    private void updatePerformance(String dayID) {
+        getActivitiesData(dayID);
     }
 
     private void getActivitiesData(String dayID) //TODO UPDATE THE TOTAL NUMBER OF ACTIVITIES WHEN A NEW ACTIVITY IS ADDED / REMOVED
@@ -354,8 +356,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         db.collection("PROGRAM").document(getUID()).collection(dayID).document("PERFORMANCE").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.get("Activities completed") != null && documentSnapshot.get("Activities total") != null)
-                {
+                if (documentSnapshot.get("Activities completed") != null && documentSnapshot.get("Activities total") != null) {
                     String actCompleted = documentSnapshot.get("Activities completed").toString();
                     String actTotal = documentSnapshot.get("Activities total").toString();
                     activitiesCompleted = Integer.valueOf(actCompleted);
@@ -363,6 +364,13 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
                 }
             }
         });
+
+        pushActivitiesData(dayID);
+    }
+
+    private void pushActivitiesData(String dayID) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("PROGRAM").document(getUID()).collection(dayID).document("PERFORMANCE").update("Activities completed", activitiesCompleted + "");
     }
 
 
@@ -421,12 +429,10 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
                         sortActivities(stringDateServer, document.getId());
                     }
                     if (x == 0) {
-                        if(spamProtect >=3) // >= the number of attempts to get data
+                        if (spamProtect >= 3) // >= the number of attempts to get data
                         {
-                          return;
-                        }
-                        else
-                        {
+                            return;
+                        } else {
                             copyPresetToDate(stringDateServer, dayOfTheWeek);
                             spamProtect++;
                         }
