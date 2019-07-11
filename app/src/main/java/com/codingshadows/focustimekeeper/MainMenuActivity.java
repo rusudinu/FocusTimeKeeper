@@ -338,8 +338,13 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
             }
         });
         //todo add it to the performance file for that date
+        updatePerformance();
     }
 
+    private void updatePerformance()
+    {
+
+    }
 
     private String getUID() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
