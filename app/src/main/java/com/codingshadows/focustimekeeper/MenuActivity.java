@@ -123,7 +123,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private void showPerformance()
     {
-        Intent intent = new Intent(MenuActivity.this, PerformanceActivity.class); //TODO THIS
+        Intent intent = new Intent(MenuActivity.this, PerformanceActivity.class);
         startActivity(intent);
         finish();
     }
