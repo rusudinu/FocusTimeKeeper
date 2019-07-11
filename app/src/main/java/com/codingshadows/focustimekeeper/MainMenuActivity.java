@@ -341,18 +341,36 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         updatePerformance(stringDateServer);
     }
 
+    int activitiesCompleted = 0;
+    int totalActivities = 0;
     private void updatePerformance(String dayID)
+    {
+       getActivitiesData(dayID);
+    }
+
+    private void getActivitiesData(String dayID) //TODO UPDATE THE TOTAL NUMBER OF ACTIVITIES
     {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("PROGRAM").document(getUID()).collection(dayID).document("PERFORMANCE").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-
+                if(documentSnapshot.get("Activities completed") != null && documentSnapshot.get("Activities total") != null)
+                {
+                    String actCompleted = documentSnapshot.get("Activities completed").toString();
+                    String actTotal = documentSnapshot.get("Activities total").toString();
+                    activitiesCompleted = Integer.valueOf(actCompleted);
+                    totalActivities = Integer.valueOf(actTotal);
+                }
             }
         });
     }
 
-
+    private void updateNumberOfActivities(String dayID, int number)
+    {
+        //this function updates the number of activities for a certain day
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("PROGRAM").document(getUID()).collection(dayID).document("PERFORMANCE").update("Activities total", number + "");
+    }
 
     private String getUID() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
