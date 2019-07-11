@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -224,6 +225,7 @@ public class MakeProgramActivity extends AppCompatActivity {
 
                         }
                     });
+            updateActivitiesData(date);
         } else {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             Map<String, Object> userData = new HashMap<>();
@@ -245,10 +247,40 @@ public class MakeProgramActivity extends AppCompatActivity {
                             }
                         });
             } catch (Exception e) {
-                //  Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+                 Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
             }
-
+            updateActivitiesData(dropdownSelection);
         }
+    }
+
+
+    private void updateActivitiesData(String collectionID)
+    {
+        getActivitiesData(collectionID);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities total", activitiesTotal + 1);
+    }
+
+    int activitiesTotal = 0;
+
+    private void getActivitiesData(final String collectionID)
+    {
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.get("Activities total") != null)
+                {
+                    String actTS = documentSnapshot.get("Activities total").toString();
+                    activitiesTotal = Integer.valueOf(actTS);
+                }
+                else if (documentSnapshot.get("Activities completed") == null)
+                {
+                    db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities total", 0);
+                    db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities completed", 0);
+                }
+            }
+        });
     }
 
 
@@ -352,30 +384,6 @@ public class MakeProgramActivity extends AppCompatActivity {
         set.applyTo(layout);
     }
 
-    private void drawPictogram(int code)
-    {
-        count++;
-        ConstraintLayout layout = findViewById(R.id.constraintLayoutMakeProgram);
-        ConstraintSet set = new ConstraintSet();
-        ImageView view = new ImageView(this);
-
-        if(code == 0)
-        {
-            view.setImageResource(R.drawable.ic_account_circle_white);
-        }
-        else if (code == 1)
-        {
-            view.setImageResource(R.drawable.ic_account_circle_white); // TODO ANOTHER ONE
-        }
-
-        view.setId(count);
-        layout.addView(view, 0);
-        set.clone(layout);
-        set.connect(view.getId(), ConstraintSet.TOP, count - 1, ConstraintSet.BOTTOM, 15);
-        set.connect(view.getId(), ConstraintSet.LEFT, layout.getId(), ConstraintSet.LEFT, 60);
-        set.connect(view.getId(), ConstraintSet.RIGHT, layout.getId(), ConstraintSet.RIGHT, 60);
-        set.applyTo(layout);
-    }
 //endregion
 
     private void showNotification(String notifText) {
@@ -384,7 +392,7 @@ public class MakeProgramActivity extends AppCompatActivity {
         startActivity(intent);
         overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
     }
-//TODO THE DRAWABLE NUMBER
+
     @Override
     protected void onResume() {
         super.onResume();
