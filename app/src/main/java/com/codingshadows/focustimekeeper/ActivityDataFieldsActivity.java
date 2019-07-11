@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 public class ActivityDataFieldsActivity extends AppCompatActivity {
+    private int selectedImage = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +29,9 @@ public class ActivityDataFieldsActivity extends AppCompatActivity {
         String date = intent.getStringExtra("date");
 
         //todo change the color of the thing that is selected
-        ImageView ivVectorImage = findViewById(R.id.friendsIcon);
-        ivVectorImage.setColorFilter(getResources().getColor(R.color.colorPrimary));
 
+        //ImageView ivVectorImage = findViewById(R.id.friendsIcon);
+        //ivVectorImage.setColorFilter(getResources().getColor(R.color.circleRed));
         //WindowManager.LayoutParams wmlp = getWindow().getAttributes();
         // wmlp.gravity = Gravity.TOP | Gravity.RIGHT;
 //TODO THE DRAWABLE NUMBER
@@ -46,39 +48,10 @@ public class ActivityDataFieldsActivity extends AppCompatActivity {
         titleTV.setText("Adauga o activitate noua" + '\n' + date);
 
 
-        if(date.equals("Luni"))
-        {
 
-        }
-        else if(date.equals("Marti"))
-        {
 
-        }
-        else if(date.equals("Miercuri"))
-        {
-
-        }
-        else if(date.equals("Joi"))
-        {
-
-        }
-        else if(date.equals("Vieri"))
-        {
-
-        }else if(date.equals("Sambata"))
-        {
-
-        }else if(date.equals("Duminica"))
-        {
-
-        }
-        else if(date.equals("Program special"))
-        {
-
-        }
 
         //region select hour
-
         final EditText startHourET = findViewById(R.id.startHourEditText);
         startHourET.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,8 +144,12 @@ public class ActivityDataFieldsActivity extends AppCompatActivity {
             }
         });
     }
-    public String checkDigit(int number) {
+    private String checkDigit(int number) {
         return number <= 9 ? "0" + number : String.valueOf(number);
     }
 
+    private void changeSelectedImage()
+    {
+
+    }
 }

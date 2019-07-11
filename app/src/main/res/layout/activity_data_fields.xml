@@ -94,26 +94,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/pickImageButton"
-                android:layout_width="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/muli_semibold"
-                android:text="Alege o imagine reprezentativa:"
-                android:textColor="@color/backgroundWhite"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detaliiEditText" />
-
             <Button
                 android:id="@+id/addActivityButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/my_custom_touch_button"
                 android:fontFamily="@font/muli_semibold"
@@ -124,17 +110,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/friendsIcon" />
-
-            <ImageView
-                android:id="@+id/friendsIcon"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pickImageButton"
-                app:srcCompat="@drawable/ic_friend_white" />
+                app:layout_constraintTop_toBottomOf="@+id/detaliiEditText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
