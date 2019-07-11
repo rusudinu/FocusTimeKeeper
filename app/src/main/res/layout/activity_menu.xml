@@ -98,7 +98,7 @@
                 android:background="@android:color/darker_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/stayFocusedTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/dailyPerformance" />
 
             <TextView
                 android:id="@+id/profileTextView"
@@ -157,6 +157,22 @@
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/whiteBarBttom" />
+
+            <TextView
+                android:id="@+id/dailyPerformance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/performance_icon_white"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/muli_semibold"
+                android:gravity="center"
+                android:text="Performanta"
+                android:textColor="@color/backgroundWhite"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stayFocusedTextView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
