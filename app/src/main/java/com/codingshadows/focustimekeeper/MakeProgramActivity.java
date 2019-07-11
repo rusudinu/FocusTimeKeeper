@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -281,10 +282,14 @@ public class MakeProgramActivity extends AppCompatActivity {
                 }
                 else if (!documentSnapshot.exists())
                 {
-                    db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities total", 0);
-                    db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities completed", 0);
+                    Map<String, Object> userData = new HashMap<>();
+                    userData.put("Activities total", 0 + "");
+                    userData.put("Activities completed", 0 + "");
+
+                    Toast.makeText(MakeProgramActivity.this, "doc does not exist", Toast.LENGTH_SHORT).show();
                 }
             }
+
         });
     }
 
