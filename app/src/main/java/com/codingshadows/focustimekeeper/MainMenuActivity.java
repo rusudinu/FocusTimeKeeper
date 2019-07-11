@@ -338,13 +338,21 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
             }
         });
         //todo add it to the performance file for that date
-        updatePerformance();
+        updatePerformance(stringDateServer);
     }
 
-    private void updatePerformance()
+    private void updatePerformance(String dayID)
     {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("PROGRAM").document(getUID()).collection(dayID).document("PERFORMANCE").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
 
+            }
+        });
     }
+
+
 
     private String getUID() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
