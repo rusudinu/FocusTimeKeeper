@@ -147,15 +147,14 @@ public class PerformanceActivity extends AppCompatActivity {
 
 
     int tempCompleted = 0;
-    int tempTotal = 0;
     double tempPercentage = 0;
 
     private void showData() // animate it here too
     {
         final ProgressBar progressBar = findViewById(R.id.progressBar2);
-        progressBar.setMax(totalActivities);
+        progressBar.setMax(totalActivities * 50);
         final TextView ptv = findViewById(R.id.percentageTextView);
-        new CountDownTimer(100, 1) {
+        new CountDownTimer(1, 1) {
 
             public void onTick(long millisUntilFinished) {
 
@@ -166,9 +165,8 @@ public class PerformanceActivity extends AppCompatActivity {
                 if(tempCompleted < activitiesCompleted) {
                     tempCompleted++;
                 }
-                tempTotal++;
-                tempPercentage = tempCompleted * 100 / tempTotal;
-                String toDisplay = tempPercentage + " %" + "  (" + tempCompleted + "/" + tempTotal + ")" ;
+                tempPercentage = tempCompleted * 100 / totalActivities;
+                String toDisplay = tempPercentage + " %" + "  (" + tempCompleted + "/" + totalActivities + ")" ;
                 ptv.setText(toDisplay);
                 progressBar.setProgress(tempCompleted);
                 if(tempPercentage >=70)
@@ -183,7 +181,10 @@ public class PerformanceActivity extends AppCompatActivity {
                 {
                     progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
                 }
-                showData();
+                if(tempCompleted < activitiesCompleted * 50)
+                {
+                    showData();
+                }
             }
         }.start();
     }
