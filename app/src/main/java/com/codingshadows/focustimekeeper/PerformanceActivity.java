@@ -86,7 +86,6 @@ public class PerformanceActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) { //empty everything
                 activitiesCompleted = 0;
                 totalActivities = 0;
-                gotData = false;
             }
         });
 
