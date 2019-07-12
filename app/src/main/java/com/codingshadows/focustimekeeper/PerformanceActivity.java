@@ -5,14 +5,18 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.DatePickerDialog;
 import android.content.pm.ActivityInfo;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,7 +36,9 @@ public class PerformanceActivity extends AppCompatActivity {
     private int activitiesCompleted = 0;
     private int totalActivities = 0;
     private String currentDateSelected = "";
+    private String tag = "PerformanceActivity";
     int pastDay = 0;
+    private boolean gotData = false;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     @Override
@@ -81,6 +87,7 @@ public class PerformanceActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) { //empty everything
                 activitiesCompleted = 0;
                 totalActivities = 0;
+                gotData = false;
             }
         });
 
@@ -102,10 +109,12 @@ public class PerformanceActivity extends AppCompatActivity {
                     }
                 } else date = day + "/" + month + "/" + year;
                 Calendar cal = Calendar.getInstance();
-                TextView showDateTV = findViewById(R.id.titleTextView);
+                TextView showDateTV = findViewById(R.id.selectDateTextView);
                 if (day == cal.get(Calendar.DAY_OF_MONTH)) showDateTV.setText("Astazi, " + date);
                 else showDateTV.setText(date);
                 currentDateSelected = date.replace("/", "");
+                getData(currentDateSelected);
+                Log.e(tag, currentDateSelected);
             }
         };
     }
@@ -126,12 +135,31 @@ public class PerformanceActivity extends AppCompatActivity {
                     String actTotal = documentSnapshot.get("Activities total").toString();
                     activitiesCompleted = Integer.valueOf(actCompleted);
                     totalActivities = Integer.valueOf(actTotal);
+                    gotData = true;
                 }
             }
         });
     }
 
     private void showData() {
+        if(gotData)
+        {
+            final ProgressBar progressBar = findViewById(R.id.progressBar);
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+            progressBar.setMax(totalActivities);
+            progressBar.setProgress(activitiesCompleted);
+        }else {
+            new CountDownTimer(100, 300) {
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                public void onFinish() {
+                    showData();
+                }
+            }.start();
+
+        }
 
     }
 
