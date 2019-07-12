@@ -167,8 +167,15 @@ public class PerformanceActivity extends AppCompatActivity {
                         progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
                     }
                     if(dataFound && (tempCompleted < activitiesCompleted * 50)) showData();
+                    else return;
                 }
             }.start();
+        }
+        else if (tempCompleted > activitiesCompleted)
+        {
+            tempCompleted = 0;
+            tempPercentage = 0;
+            showData();
         }
         else
         {
