@@ -477,12 +477,13 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         Log.e(tag, "copy");
         final String[] dw = new String[]{"Luni", "Marti", "Miercuri", "Joi", "Vineri", "Sambata", "Duminica"};
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("PROGRAM").document(getUID()).collection(dw[dayOfTheWeek + 1]).document("PERFORMANCE").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("PROGRAM").document(getUID()).collection(dw[dayOfTheWeek - 1]).document("PERFORMANCE").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Log.e(tag, dw[dayOfTheWeek + 1] + " ");
-                String actComplx = documentSnapshot.get("Activities completed").toString();
+                Log.e(tag, dw[dayOfTheWeek - 1] + " ");
+                Log.e(tag, dayOfTheWeek + " ");
                 String actTotalx = documentSnapshot.get("Activities total").toString();
+                String actComplx = documentSnapshot.get("Activities completed").toString();
                 pushPerformanceDoc(date, actComplx, actTotalx);
                 Log.e(tag, "pushing " + date);
             }
@@ -502,6 +503,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
     //region copy from one date to another
     private void copyPresetToDate(final String date, final int dayOfTheWeek) {
         Log.e(tag, "copy preset to date");
+        Log.e(tag, dayOfTheWeek + " _preset");
         if (dayOfTheWeek == 1) {
             final FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("PROGRAM").document(getUID()).collection("Luni").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
