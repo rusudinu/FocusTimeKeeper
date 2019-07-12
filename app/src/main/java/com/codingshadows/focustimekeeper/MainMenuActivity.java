@@ -762,18 +762,21 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
     private static class SortActivitiesAsyncTask extends AsyncTask<String, Integer, String> {
 
         @Override
-        protected String doInBackground(String... strings) {
+        protected String doInBackground(final String... strings) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("PROGRAM").document(UID).collection(strings[0]).document(strings[1]).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    String sHour = Objects.requireNonNull(documentSnapshot.get("Time")).toString();
-                    String[] vect;
-                    String splitter = " -> ";
-                    vect = sHour.split(splitter);
-                    sHour = vect[0];
-                    String sHourNumber = sHour.replace(":", "");
-                    sortVector[Integer.valueOf(sHourNumber)] = Objects.requireNonNull(documentSnapshot.get("Title")).toString() + "*" + Objects.requireNonNull(documentSnapshot.get("Time")).toString() + "*" + Objects.requireNonNull(documentSnapshot.get("Details")).toString() + "*" + documentSnapshot.getId();
+                    if (!strings[1].equals("PERFORMANCE")) {
+                        String sHour = Objects.requireNonNull(documentSnapshot.get("Time")).toString();
+                        String[] vect;
+                        String splitter = " -> ";
+                        vect = sHour.split(splitter);
+                        sHour = vect[0];
+                        String sHourNumber = sHour.replace(":", "");
+                        sortVector[Integer.valueOf(sHourNumber)] = Objects.requireNonNull(documentSnapshot.get("Title")).toString() + "*" + Objects.requireNonNull(documentSnapshot.get("Time")).toString() + "*" + Objects.requireNonNull(documentSnapshot.get("Details")).toString() + "*" + documentSnapshot.getId();
+
+                    }
                 }
             });
             return "finished";
