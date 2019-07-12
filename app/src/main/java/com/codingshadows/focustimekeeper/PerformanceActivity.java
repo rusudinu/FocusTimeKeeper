@@ -72,24 +72,6 @@ public class PerformanceActivity extends AppCompatActivity {
             }
         });
 
-        dateTV.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) { //empty everything
-                activitiesCompleted = 0;
-                totalActivities = 0;
-            }
-        });
-
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -112,6 +94,8 @@ public class PerformanceActivity extends AppCompatActivity {
                 if (day == cal.get(Calendar.DAY_OF_MONTH)) showDateTV.setText("Astazi, " + date);
                 else showDateTV.setText(date);
                 currentDateSelected = date.replace("/", "");
+                tempCompleted = 0;
+                tempPercentage = 0;
                 getData(currentDateSelected);
                 Log.e(tag, currentDateSelected);
             }
@@ -135,11 +119,15 @@ public class PerformanceActivity extends AppCompatActivity {
                     activitiesCompleted = Integer.valueOf(actCompleted);
                     totalActivities = Integer.valueOf(actTotal);
                     Log.e(tag, "got data");
+                    dataFound = true;
                     showData();
                 }
                 else {
+                    dataFound = false;
                     TextView ptv = findViewById(R.id.percentageTextView);
                     ptv.setText("n/a");
+                    final ProgressBar progressBar = findViewById(R.id.progressBar2);
+                    progressBar.setProgress(0);
                 }
             }
         });
@@ -148,45 +136,42 @@ public class PerformanceActivity extends AppCompatActivity {
 
     int tempCompleted = 0;
     double tempPercentage = 0;
+    boolean dataFound = false;
 
     private void showData() // animate it here too
     {
-        final ProgressBar progressBar = findViewById(R.id.progressBar2);
-        progressBar.setMax(totalActivities * 50);
-        final TextView ptv = findViewById(R.id.percentageTextView);
-        new CountDownTimer(1, 1) {
+        if (dataFound) {
+            final ProgressBar progressBar = findViewById(R.id.progressBar2);
+            progressBar.setMax(totalActivities * 50);
+            final TextView ptv = findViewById(R.id.percentageTextView);
+            new CountDownTimer(30, 1) {
 
-            public void onTick(long millisUntilFinished) {
+                public void onTick(long millisUntilFinished) {
 
-            }
+                }
 
-            public void onFinish() {
+                public void onFinish() {
 
-                if(tempCompleted < activitiesCompleted) {
-                    tempCompleted++;
+                    if (tempCompleted < activitiesCompleted) {
+                        tempCompleted++;
+                    }
+                    tempPercentage = tempCompleted * 100 / totalActivities;
+                    String toDisplay = tempPercentage + " %" + "  (" + tempCompleted + "/" + totalActivities + ")";
+                    ptv.setText(toDisplay);
+                    progressBar.setProgress(tempCompleted * 50);
+                    if (tempPercentage >= 70) {
+                        progressBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+                    } else if (tempPercentage >= 50) {
+                        progressBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+                    } else {
+                        progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+                    }
+                    if (tempCompleted < activitiesCompleted * 50) {
+                        showData();
+                    } else return;
                 }
-                tempPercentage = tempCompleted * 100 / totalActivities;
-                String toDisplay = tempPercentage + " %" + "  (" + tempCompleted + "/" + totalActivities + ")" ;
-                ptv.setText(toDisplay);
-                progressBar.setProgress(tempCompleted);
-                if(tempPercentage >=70)
-                {
-                    progressBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
-                }
-                else if (tempPercentage >=50)
-                {
-                    progressBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
-                }
-                else
-                {
-                    progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
-                }
-                if(tempCompleted < activitiesCompleted * 50)
-                {
-                    showData();
-                }
-            }
-        }.start();
+            }.start();
+        }
     }
 
     /*
