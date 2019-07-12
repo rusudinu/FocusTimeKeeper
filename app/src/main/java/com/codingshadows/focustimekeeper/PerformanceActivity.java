@@ -146,7 +146,7 @@ public class PerformanceActivity extends AppCompatActivity {
         } else day = cal.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog dialog = new DatePickerDialog(
-                MainMenuActivity.this,
+                PerformanceActivity.this,
                 android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                 mDateSetListener,
                 year, month, day);
