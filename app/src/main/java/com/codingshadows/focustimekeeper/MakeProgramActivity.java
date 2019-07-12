@@ -182,6 +182,7 @@ public class MakeProgramActivity extends AppCompatActivity {
                     }
                 } else date = day + "/" + month + "/" + year;
                 selectDateET.setText(date);
+                gotActivitiesData = false;
             }
         };
         //endregion
@@ -264,7 +265,12 @@ public class MakeProgramActivity extends AppCompatActivity {
         Log.e(tag, "updateActivitiesData");
         getActivitiesData(collectionID);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        if(gotActivitiesData) db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities total", activitiesTotal + 1);
+        if(gotActivitiesData)
+        {
+            db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities total", (activitiesTotal + 1) + "");
+            gotActivitiesData = false;
+            Log.e(tag, "Activities total: " + activitiesTotal);
+        }
         else {
             new CountDownTimer(100, 300) {
                 public void onTick(long millisUntilFinished) {
@@ -272,6 +278,7 @@ public class MakeProgramActivity extends AppCompatActivity {
                 }
 
                 public void onFinish() {
+                    Log.e(tag, "Activities total: " + activitiesTotal);
                     updateActivitiesDataRecurring(collectionID);
                 }
             }.start();
@@ -283,7 +290,9 @@ public class MakeProgramActivity extends AppCompatActivity {
         if(gotActivitiesData)
         {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities total", activitiesTotal + 1);
+            db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities total", (activitiesTotal + 1) + "");
+            gotActivitiesData = false;
+            Log.e(tag, "Activities total_recurring: " + activitiesTotal);
         }
         else {
             new CountDownTimer(100, 300) {
@@ -292,6 +301,7 @@ public class MakeProgramActivity extends AppCompatActivity {
                 }
 
                 public void onFinish() {
+                    Log.e(tag, "Activities total: " + activitiesTotal);
                     updateActivitiesDataRecurring(collectionID);
                 }
             }.start();
@@ -299,7 +309,7 @@ public class MakeProgramActivity extends AppCompatActivity {
 
     }
 
-    int activitiesTotal = 0;
+    private int activitiesTotal = 0;
     private boolean gotActivitiesData = false;
 
     private void getActivitiesData(final String collectionID) // TODO THIS ?????
@@ -314,6 +324,8 @@ public class MakeProgramActivity extends AppCompatActivity {
                     Log.e(tag, "activities total is not null");
                     String actTS = documentSnapshot.get("Activities total").toString();
                     activitiesTotal = Integer.valueOf(actTS);
+                    Log.e(tag, "Activities total_first_iteration: " + activitiesTotal);
+                    gotActivitiesData = true;
                 }
                 else if (documentSnapshot.get("Activities completed") == null)
                 {
@@ -322,6 +334,7 @@ public class MakeProgramActivity extends AppCompatActivity {
                     userData.put("Activities total", 0 + "");
                     userData.put("Activities completed", 0 + "");
                     db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").set(userData);
+                    gotActivitiesData = true;
                 }
                 else if (!documentSnapshot.exists())
                 {
@@ -330,11 +343,11 @@ public class MakeProgramActivity extends AppCompatActivity {
                     userData.put("Activities total", 0 + "");
                     userData.put("Activities completed", 0 + "");
                     db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").set(userData);
+                    gotActivitiesData = true;
                 }
             }
 
         });
-        gotActivitiesData = true;
     }
 
 

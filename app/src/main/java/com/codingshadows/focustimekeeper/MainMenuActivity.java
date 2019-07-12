@@ -55,6 +55,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
     private TextView quoteTV;
     private static String UID = "";
     private int spamProtect = 0;
+    private String tag = "MainMenuActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -346,12 +347,9 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
     int activitiesCompleted = 0;
     int totalActivities = 0;
 
-    private void updatePerformance(String dayID) {
-        getActivitiesData(dayID);
-    }
 
-    private void getActivitiesData(String dayID)
-    {
+    private void getActivitiesData(String dayID) {
+        Log.e(tag, "getActivitiesData");
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("PROGRAM").document(getUID()).collection(dayID).document("PERFORMANCE").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -361,15 +359,20 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
                     String actTotal = documentSnapshot.get("Activities total").toString();
                     activitiesCompleted = Integer.valueOf(actCompleted);
                     totalActivities = Integer.valueOf(actTotal);
+                    Log.e(tag, "Completed: " + activitiesCompleted);
+                    Log.e(tag, "totaalActivities" + totalActivities);
                 }
             }
         });
-        pushActivitiesData(dayID);
     }
 
-    private void pushActivitiesData(String dayID) {
+    private void updatePerformance(String dayID) { // this dude pushes an update when an activity is completed
+        Log.e(tag, "pushActivitiesData");
+        Log.e(tag, "old: " + activitiesCompleted);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("PROGRAM").document(getUID()).collection(dayID).document("PERFORMANCE").update("Activities completed", (activitiesCompleted + 1 )+ "");
+        db.collection("PROGRAM").document(getUID()).collection(dayID).document("PERFORMANCE").update("Activities completed", (activitiesCompleted + 1) + "");
+        activitiesCompleted++;
+        Log.e(tag, "new: " + activitiesCompleted);
     }
 
 
@@ -417,6 +420,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
 
         //endregion
 
+        getActivitiesData(stringDateServer);
         db.collection("PROGRAM").document(getUID()).collection(stringDateServer).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -468,8 +472,36 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+
+    private void copyPerformanceDoc(final String date, final int dayOfTheWeek) {
+        Log.e(tag, "copy");
+        final String[] dw = new String[]{"Luni", "Marti", "Miercuri", "Joi", "Vineri", "Sambata", "Duminica"};
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("PROGRAM").document(getUID()).collection(dw[dayOfTheWeek + 1]).document("PERFORMANCE").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.e(tag, dw[dayOfTheWeek + 1] + " ");
+                String actComplx = documentSnapshot.get("Activities completed").toString();
+                String actTotalx = documentSnapshot.get("Activities total").toString();
+                pushPerformanceDoc(date, actComplx, actTotalx);
+                Log.e(tag, "pushing " + date);
+            }
+        });
+    }
+
+    private void pushPerformanceDoc(String date, String actCompleteda, String actTotala) {
+        Log.e(tag, "pushPerformanceDoc");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("Activities total", actTotala);
+        userData.put("Activities completed", actCompleteda);
+        db.collection("PROGRAM").document(getUID()).collection(date).document("PERFORMANCE").set(userData);
+    }
+
+
     //region copy from one date to another
-    private void copyPresetToDate(final String date, int dayOfTheWeek) {
+    private void copyPresetToDate(final String date, final int dayOfTheWeek) {
+        Log.e(tag, "copy preset to date");
         if (dayOfTheWeek == 1) {
             final FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("PROGRAM").document(getUID()).collection("Luni").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -478,12 +510,19 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             //final String docContents = getDocStrings(document.getId(), "Miercuri");
-                            db.collection("PROGRAM").document(getUID()).collection("Luni").document(document.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    createDocument(date, documentSnapshot.get("Title").toString(), documentSnapshot.get("Time").toString(), documentSnapshot.get("Details").toString());
-                                }
-                            });
+                            if (!document.getId().equals("PERFORMANCE")) {
+                                Log.e(tag, document.getId() + " _d");
+                                db.collection("PROGRAM").document(getUID()).collection("Luni").document(document.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        createDocument(date, documentSnapshot.get("Title").toString(), documentSnapshot.get("Time").toString(), documentSnapshot.get("Details").toString());
+                                    }
+                                });
+                            } else {
+                                Log.e(tag, "performance doc");
+                                copyPerformanceDoc(date, dayOfTheWeek);
+                            }
+
                         }
                     }
                 }
@@ -496,12 +535,19 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             //final String docContents = getDocStrings(document.getId(), "Miercuri");
-                            db.collection("PROGRAM").document(getUID()).collection("Marti").document(document.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    createDocument(date, documentSnapshot.get("Title").toString(), documentSnapshot.get("Time").toString(), documentSnapshot.get("Details").toString());
-                                }
-                            });
+                            if (!document.getId().equals("PERFORMANCE")) {
+                                Log.e(tag, document.getId() + " _d");
+                                db.collection("PROGRAM").document(getUID()).collection("Marti").document(document.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        createDocument(date, documentSnapshot.get("Title").toString(), documentSnapshot.get("Time").toString(), documentSnapshot.get("Details").toString());
+                                    }
+                                });
+                            } else {
+                                Log.e(tag, "performance doc");
+                                copyPerformanceDoc(date, dayOfTheWeek);
+                            }
+
                         }
                     }
                 }
@@ -514,12 +560,20 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             //final String docContents = getDocStrings(document.getId(), "Miercuri");
-                            db.collection("PROGRAM").document(getUID()).collection("Miercuri").document(document.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    createDocument(date, documentSnapshot.get("Title").toString(), documentSnapshot.get("Time").toString(), documentSnapshot.get("Details").toString());
-                                }
-                            });
+                            if (!document.getId().equals("PERFORMANCE")) {
+                                Log.e(tag, document.getId() + " _d");
+                                db.collection("PROGRAM").document(getUID()).collection("Miercuri").document(document.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        createDocument(date, documentSnapshot.get("Title").toString(), documentSnapshot.get("Time").toString(), documentSnapshot.get("Details").toString());
+                                    }
+                                });
+                            } else {
+                                Log.e(tag, "performance doc");
+                                copyPerformanceDoc(date, dayOfTheWeek);
+                            }
+
+
                         }
                     }
                 }
@@ -532,12 +586,18 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             //final String docContents = getDocStrings(document.getId(), "Miercuri");
-                            db.collection("PROGRAM").document(getUID()).collection("Joi").document(document.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    createDocument(date, documentSnapshot.get("Title").toString(), documentSnapshot.get("Time").toString(), documentSnapshot.get("Details").toString());
-                                }
-                            });
+                            if (!document.getId().equals("PERFORMANCE")) {
+                                Log.e(tag, document.getId() + " _d");
+                                db.collection("PROGRAM").document(getUID()).collection("Joi").document(document.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        createDocument(date, documentSnapshot.get("Title").toString(), documentSnapshot.get("Time").toString(), documentSnapshot.get("Details").toString());
+                                    }
+                                });
+                            } else {
+                                Log.e(tag, "performance doc");
+                                copyPerformanceDoc(date, dayOfTheWeek);
+                            }
                         }
                     }
                 }
@@ -550,12 +610,18 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             //final String docContents = getDocStrings(document.getId(), "Miercuri");
-                            db.collection("PROGRAM").document(getUID()).collection("Vineri").document(document.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    createDocument(date, documentSnapshot.get("Title").toString(), documentSnapshot.get("Time").toString(), documentSnapshot.get("Details").toString());
-                                }
-                            });
+                            if (!document.getId().equals("PERFORMANCE")) {
+                                Log.e(tag, document.getId() + " _d");
+                                db.collection("PROGRAM").document(getUID()).collection("Vineri").document(document.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        createDocument(date, documentSnapshot.get("Title").toString(), documentSnapshot.get("Time").toString(), documentSnapshot.get("Details").toString());
+                                    }
+                                });
+                            } else {
+                                Log.e(tag, "performance doc");
+                                copyPerformanceDoc(date, dayOfTheWeek);
+                            }
                         }
                     }
                 }
@@ -568,12 +634,18 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             //final String docContents = getDocStrings(document.getId(), "Miercuri");
-                            db.collection("PROGRAM").document(getUID()).collection("Sambata").document(document.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    createDocument(date, documentSnapshot.get("Title").toString(), documentSnapshot.get("Time").toString(), documentSnapshot.get("Details").toString());
-                                }
-                            });
+                            if (!document.getId().equals("PERFORMANCE")) {
+                                Log.e(tag, document.getId() + " _d");
+                                db.collection("PROGRAM").document(getUID()).collection("Sambata").document(document.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        createDocument(date, documentSnapshot.get("Title").toString(), documentSnapshot.get("Time").toString(), documentSnapshot.get("Details").toString());
+                                    }
+                                });
+                            } else {
+                                Log.e(tag, "performance doc");
+                                copyPerformanceDoc(date, dayOfTheWeek);
+                            }
                         }
                     }
                 }
@@ -585,13 +657,19 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            //final String docContents = getDocStrings(document.getId(), "Miercuri");
-                            db.collection("PROGRAM").document(getUID()).collection("Duminica").document(document.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    createDocument(date, documentSnapshot.get("Title").toString(), documentSnapshot.get("Time").toString(), documentSnapshot.get("Details").toString());
-                                }
-                            });
+                            if (!document.getId().equals("PERFORMANCE")) {
+                                Log.e(tag, document.getId() + " _d");
+                                //final String docContents = getDocStrings(document.getId(), "Miercuri");
+                                db.collection("PROGRAM").document(getUID()).collection("Duminica").document(document.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        createDocument(date, documentSnapshot.get("Title").toString(), documentSnapshot.get("Time").toString(), documentSnapshot.get("Details").toString());
+                                    }
+                                });
+                            } else {
+                                Log.e(tag, "performance doc");
+                                copyPerformanceDoc(date, dayOfTheWeek);
+                            }
                         }
                     }
                 }
