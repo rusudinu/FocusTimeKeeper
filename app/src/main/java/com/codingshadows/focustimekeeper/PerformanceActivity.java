@@ -38,7 +38,6 @@ public class PerformanceActivity extends AppCompatActivity {
     private String currentDateSelected = "";
     private String tag = "PerformanceActivity";
     int pastDay = 0;
-    private boolean gotData = false;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     @Override
@@ -135,32 +134,17 @@ public class PerformanceActivity extends AppCompatActivity {
                     String actTotal = documentSnapshot.get("Activities total").toString();
                     activitiesCompleted = Integer.valueOf(actCompleted);
                     totalActivities = Integer.valueOf(actTotal);
-                    gotData = true;
+                    showData();
                 }
             }
         });
     }
 
     private void showData() {
-        if(gotData)
-        {
-            final ProgressBar progressBar = findViewById(R.id.progressBar);
-            progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
-            progressBar.setMax(totalActivities);
-            progressBar.setProgress(activitiesCompleted);
-        }else {
-            new CountDownTimer(100, 300) {
-                public void onTick(long millisUntilFinished) {
-
-                }
-
-                public void onFinish() {
-                    showData();
-                }
-            }.start();
-
-        }
-
+        final ProgressBar progressBar = findViewById(R.id.progressBar);
+        progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+        progressBar.setMax(totalActivities);
+        progressBar.setProgress(activitiesCompleted);
     }
 
     private void showCalendar() {
