@@ -54,6 +54,7 @@ public class PerformanceActivity extends AppCompatActivity {
         Date date = new Date();
         final String currentDate = formatter.format(date);
         dateTV.setText("Astazi, " + currentDate);
+        getData(currentDate.replace("/",""));
 
 
         dateTV.setOnClickListener(new View.OnClickListener() {
@@ -133,17 +134,38 @@ public class PerformanceActivity extends AppCompatActivity {
                     String actTotal = documentSnapshot.get("Activities total").toString();
                     activitiesCompleted = Integer.valueOf(actCompleted);
                     totalActivities = Integer.valueOf(actTotal);
+                    Log.e(tag, "got data");
                     showData();
+                }
+                else {
+                    TextView ptv = findViewById(R.id.percentageTextView);
+                    ptv.setText("n/a");
                 }
             }
         });
     }
 
     private void showData() {
-        final ProgressBar progressBar = findViewById(R.id.progressBar);
-        progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+        final ProgressBar progressBar = findViewById(R.id.progressBar2);
         progressBar.setMax(totalActivities);
         progressBar.setProgress(activitiesCompleted);
+        TextView ptv = findViewById(R.id.percentageTextView);
+        double percentage = activitiesCompleted * 100 / totalActivities;
+        if(percentage >=70)
+        {
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+        }
+        else if (percentage >=50)
+        {
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+        }
+        else
+        {
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+        }
+
+        String toDisplay = percentage + " %" + "  (" + activitiesCompleted + "/" + totalActivities + ")" ;
+        ptv.setText(toDisplay);
     }
 
     private void showCalendar() {
