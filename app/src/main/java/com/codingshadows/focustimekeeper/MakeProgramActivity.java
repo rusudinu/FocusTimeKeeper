@@ -12,6 +12,8 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -44,6 +46,8 @@ public class MakeProgramActivity extends AppCompatActivity {
     int pastDay = 0;
     int activityNumber = 1;
     String dropdownSelection = "";
+
+    private String tag = "MakeProgramActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -255,42 +259,82 @@ public class MakeProgramActivity extends AppCompatActivity {
     }
 
 
-    private void updateActivitiesData(String collectionID)
+    private void updateActivitiesData(final String collectionID)
     {
+        Log.e(tag, "updateActivitiesData");
         getActivitiesData(collectionID);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities total", activitiesTotal + 1);
+        if(gotActivitiesData) db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities total", activitiesTotal + 1);
+        else {
+            new CountDownTimer(100, 300) {
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                public void onFinish() {
+                    updateActivitiesDataRecurring(collectionID);
+                }
+            }.start();
+        }
+    }
+
+    private void updateActivitiesDataRecurring(final String collectionID){
+        Log.e(tag, "recurring");
+        if(gotActivitiesData)
+        {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities total", activitiesTotal + 1);
+        }
+        else {
+            new CountDownTimer(100, 300) {
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                public void onFinish() {
+                    updateActivitiesDataRecurring(collectionID);
+                }
+            }.start();
+        }
+
     }
 
     int activitiesTotal = 0;
+    private boolean gotActivitiesData = false;
 
-    private void getActivitiesData(final String collectionID)
+    private void getActivitiesData(final String collectionID) // TODO THIS ?????
     {
+        Log.e(tag, "getActivitiesData");
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.get("Activities total") != null)
                 {
+                    Log.e(tag, "activities total is not null");
                     String actTS = documentSnapshot.get("Activities total").toString();
                     activitiesTotal = Integer.valueOf(actTS);
                 }
                 else if (documentSnapshot.get("Activities completed") == null)
                 {
-                    db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities total", 0);
-                    db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").update("Activities completed", 0);
-                }
-                else if (!documentSnapshot.exists())
-                {
+                    Log.e(tag, "activities completed is null");
                     Map<String, Object> userData = new HashMap<>();
                     userData.put("Activities total", 0 + "");
                     userData.put("Activities completed", 0 + "");
-
-                    Toast.makeText(MakeProgramActivity.this, "doc does not exist", Toast.LENGTH_SHORT).show();
+                    db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").set(userData);
+                }
+                else if (!documentSnapshot.exists())
+                {
+                    Log.e(tag, "the document does not exist");
+                    Map<String, Object> userData = new HashMap<>();
+                    userData.put("Activities total", 0 + "");
+                    userData.put("Activities completed", 0 + "");
+                    db.collection("PROGRAM").document(getUID()).collection(collectionID).document("PERFORMANCE").set(userData);
                 }
             }
 
         });
+        gotActivitiesData = true;
     }
 
 
