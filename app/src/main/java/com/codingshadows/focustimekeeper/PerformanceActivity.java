@@ -145,44 +145,88 @@ public class PerformanceActivity extends AppCompatActivity {
         });
     }
 
-    private void showData() {
-        final ProgressBar progressBar = findViewById(R.id.progressBar2);
-        progressBar.setMax(totalActivities);
-        progressBar.setProgress(activitiesCompleted);
-        TextView ptv = findViewById(R.id.percentageTextView);
 
+    int tempCompleted = 0;
+    int tempTotal = 0;
+    double tempPercentage = 0;
 
-        double percentage = activitiesCompleted * 100 / totalActivities;
-        colorProgressBar(percentage);
-
-
-        String toDisplay = percentage + " %" + "  (" + activitiesCompleted + "/" + totalActivities + ")" ;
-        ptv.setText(toDisplay);
-
-        int tempCompleted = 0;
-        int tempTotal = 0;
-        int tempPercentage = 0;
-
-
-    }
-
-    private void colorProgressBar(double percentage)
+    private void showData() // animate it here too
     {
         final ProgressBar progressBar = findViewById(R.id.progressBar2);
-        if(percentage >=70)
-        {
-            progressBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
-        }
-        else if (percentage >=50)
-        {
-            progressBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
-        }
-        else
-        {
-            progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
-        }
+        progressBar.setMax(totalActivities);
+        final TextView ptv = findViewById(R.id.percentageTextView);
+        new CountDownTimer(100, 1) {
 
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            public void onFinish() {
+
+                if(tempCompleted < activitiesCompleted) {
+                    tempCompleted++;
+                }
+                tempTotal++;
+                tempPercentage = tempCompleted * 100 / tempTotal;
+                String toDisplay = tempPercentage + " %" + "  (" + tempCompleted + "/" + tempTotal + ")" ;
+                ptv.setText(toDisplay);
+                progressBar.setProgress(tempCompleted);
+                if(tempPercentage >=70)
+                {
+                    progressBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+                }
+                else if (tempPercentage >=50)
+                {
+                    progressBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+                }
+                else
+                {
+                    progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+                }
+                showData();
+            }
+        }.start();
     }
+
+    /*
+    private void showData2() {
+
+
+        for(int i=1; i<=totalActivities;i++)
+        {
+            tempTotal = i;
+            new CountDownTimer(1000, 1) {
+
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                public void onFinish() {
+
+                    if(tempCompleted < activitiesCompleted) {
+                        tempCompleted++;
+                    }
+                    tempPercentage = tempCompleted * 100 / tempTotal;
+                    String toDisplay = tempPercentage + " %" + "  (" + tempCompleted + "/" + tempTotal + ")" ;
+                    ptv.setText(toDisplay);
+                    progressBar.setProgress(tempCompleted);
+                    if(tempPercentage >=70)
+                    {
+                        progressBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+                    }
+                    else if (tempPercentage >=50)
+                    {
+                        progressBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+                    }
+                    else
+                    {
+                        progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+                    }
+                }
+            }.start();
+        }
+    }
+*/
 
 
     private void showCalendar() {
