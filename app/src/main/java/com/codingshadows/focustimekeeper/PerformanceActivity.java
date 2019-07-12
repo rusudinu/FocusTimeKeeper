@@ -140,7 +140,7 @@ public class PerformanceActivity extends AppCompatActivity {
 
     private void showData() // animate it here too
     {
-        if (dataFound) {
+        if (dataFound && (tempCompleted < activitiesCompleted * 50)) {
             final ProgressBar progressBar = findViewById(R.id.progressBar2);
             progressBar.setMax(totalActivities * 50);
             final TextView ptv = findViewById(R.id.percentageTextView);
@@ -166,11 +166,13 @@ public class PerformanceActivity extends AppCompatActivity {
                     } else {
                         progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
                     }
-                    if (tempCompleted < activitiesCompleted * 50) {
-                        showData();
-                    } else return;
+                    if(dataFound && (tempCompleted < activitiesCompleted * 50)) showData();
                 }
             }.start();
+        }
+        else
+        {
+            return;
         }
     }
 
