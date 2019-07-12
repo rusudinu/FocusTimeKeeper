@@ -150,7 +150,25 @@ public class PerformanceActivity extends AppCompatActivity {
         progressBar.setMax(totalActivities);
         progressBar.setProgress(activitiesCompleted);
         TextView ptv = findViewById(R.id.percentageTextView);
+
+
         double percentage = activitiesCompleted * 100 / totalActivities;
+        colorProgressBar(percentage);
+
+
+        String toDisplay = percentage + " %" + "  (" + activitiesCompleted + "/" + totalActivities + ")" ;
+        ptv.setText(toDisplay);
+
+        int tempCompleted = 0;
+        int tempTotal = 0;
+        int tempPercentage = 0;
+
+
+    }
+
+    private void colorProgressBar(double percentage)
+    {
+        final ProgressBar progressBar = findViewById(R.id.progressBar2);
         if(percentage >=70)
         {
             progressBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
@@ -164,9 +182,8 @@ public class PerformanceActivity extends AppCompatActivity {
             progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
         }
 
-        String toDisplay = percentage + " %" + "  (" + activitiesCompleted + "/" + totalActivities + ")" ;
-        ptv.setText(toDisplay);
     }
+
 
     private void showCalendar() {
         Calendar cal = Calendar.getInstance();
