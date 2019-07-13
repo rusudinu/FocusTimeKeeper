@@ -54,7 +54,8 @@ public class UserFriendProfileActivity extends AppCompatActivity {
                         x++;
                         if(document.get("Email").toString().equals(email))
                         {
-                            Intent intent = new Intent(UserFriendProfileActivity.this,UserProfileActivity.class);
+                            Intent intent = new Intent(UserFriendProfileActivity.this,UserProfileActivity.class); // trimit datele la activitatea
+                            //cu profilul utilizatorului (scutesc cod si memorie)
                             intent.putExtra("ID",document.getId());
                             startActivity(intent);
                             finish();

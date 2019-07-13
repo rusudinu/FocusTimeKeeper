@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 
@@ -32,6 +33,8 @@ public class LoadingScreenActivity extends AppCompatActivity {
 
     private int STORAGE_PERMISSION_CODE = 1;
     private FirebaseAuth mAuth;
+    private String tag = "LoadingScreenActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +42,10 @@ public class LoadingScreenActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        if(checkCrack()) //TODO ENABLE.DISABLE
+        if (checkCrack()) //TODO ENABLE.DISABLE
         {
-          //android.os.Process.killProcess(android.os.Process.myPid());
-          //finishAffinity();
+            //android.os.Process.killProcess(android.os.Process.myPid());
+            //finishAffinity();
         }
         checkStorage();
     }
@@ -92,9 +95,9 @@ public class LoadingScreenActivity extends AppCompatActivity {
             while ((line = in.readLine()) != null) stringBuilder.append(line);
 
         } catch (FileNotFoundException e) {
-
+            Log.e(tag, e.toString());
         } catch (IOException e) {
-
+            Log.e(tag, e.toString());
         }
         return stringBuilder.toString();
     }
@@ -106,8 +109,7 @@ public class LoadingScreenActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         String installer = context.getPackageManager().getInstallerPackageName(context.getPackageName());
 
-        if(BuildConfig.DEBUG)
-        {
+        if (BuildConfig.DEBUG) {
             return true;
         }
 
@@ -117,7 +119,7 @@ public class LoadingScreenActivity extends AppCompatActivity {
             }
 
         } catch (Exception e) {
-
+            return false;
         }
         try {
             if (!String.valueOf(installer).equals("")) {
@@ -126,10 +128,8 @@ public class LoadingScreenActivity extends AppCompatActivity {
                 }
             }
         } catch (Exception e) {
-
+            return false;
         }
-
-
         return false;
     }
 
