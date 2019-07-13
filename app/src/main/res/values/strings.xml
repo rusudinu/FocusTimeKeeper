@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Focus: Time Keeper</string>
     <string name="title_activity_stay_focused">StayFocusedActivity</string>
+    <string name="aZero">0</string>
+
+    <!--START SHOP STRINGS-->
+    <string name="shopTitle">Magazin relicve</string>
+    <string name="price200">200 Focus Points</string>
+    <!--END SHOP STRINGS-->
+
 </resources>
