@@ -113,12 +113,26 @@ public class MenuActivity extends AppCompatActivity {
                 showPerformance();
             }
         });
+
+        TextView tutorialTV = findViewById(R.id.tutorial);
+        tutorialTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTutorial();
+            }
+        });
     }
 
     @Override
     public void finish() {
         super.finish();
         overridePendingTransition(0, R.anim.exit);
+    }
+
+    private void showTutorial(){
+        Intent intent = new Intent(MenuActivity.this, TutorialActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void showPerformance()

@@ -22,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".PerformanceActivity"></activity>
+        <activity android:name=".TutorialActivity"></activity>
+        <activity android:name=".PerformanceActivity" />
         <activity android:name=".ShopActivity" />
         <activity android:name=".DocumentationActivity" />
         <activity android:name=".PermissionDetailsActivity" />
