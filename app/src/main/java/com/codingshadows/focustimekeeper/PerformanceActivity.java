@@ -54,7 +54,7 @@ public class PerformanceActivity extends AppCompatActivity {
         Date date = new Date();
         final String currentDate = formatter.format(date);
         dateTV.setText("Astazi, " + currentDate);
-        getData(currentDate.replace("/",""));
+        getData(currentDate.replace("/", ""));
 
 
         dateTV.setOnClickListener(new View.OnClickListener() {
@@ -96,9 +96,19 @@ public class PerformanceActivity extends AppCompatActivity {
                 currentDateSelected = date.replace("/", "");
                 tempCompleted = 0;
                 tempPercentage = 0;
-                getData(currentDateSelected);
-                Log.e(tag, currentDateSelected);
+
+                new CountDownTimer(20, 1) { // astept sa se termine animatia de disparitie a calendarului
+                    public void onTick(long millisUntilFinished) {
+
+                    }
+
+                    public void onFinish() {
+                        getData(currentDateSelected);
+                        Log.e(tag, currentDateSelected);
+                    }
+                }.start();
             }
+
         };
     }
 
@@ -121,8 +131,7 @@ public class PerformanceActivity extends AppCompatActivity {
                     Log.e(tag, "got data");
                     dataFound = true;
                     showData();
-                }
-                else {
+                } else {
                     dataFound = false;
                     TextView ptv = findViewById(R.id.percentageTextView);
                     ptv.setText("n/a");
@@ -140,12 +149,14 @@ public class PerformanceActivity extends AppCompatActivity {
 
     private void showData() // animate it here too
     {
-        if (dataFound && (tempCompleted < activitiesCompleted * 50)) {
+        Log.e(tag, "show data");
+        if (dataFound && (tempCompleted * 50 < activitiesCompleted * 50)) {
+            Log.e(tag, "in if");
             final ProgressBar progressBar = findViewById(R.id.progressBar2);
             progressBar.setMax(totalActivities * 50);
             final TextView ptv = findViewById(R.id.percentageTextView);
-            new CountDownTimer(30, 1) {
 
+            new CountDownTimer(30, 1) {
                 public void onTick(long millisUntilFinished) {
 
                 }
@@ -166,20 +177,14 @@ public class PerformanceActivity extends AppCompatActivity {
                     } else {
                         progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
                     }
-                    if(dataFound && (tempCompleted < activitiesCompleted * 50)) showData();
-                    else return;
+                    if (dataFound && (tempCompleted * 50 < activitiesCompleted * 50)) showData();
+                    else dataFound = false;
                 }
             }.start();
-        }
-        else if (tempCompleted > activitiesCompleted)
-        {
+        } else if (tempCompleted > activitiesCompleted) {
             tempCompleted = 0;
             tempPercentage = 0;
-            showData();
-        }
-        else
-        {
-            return;
+            dataFound = false;
         }
     }
 
