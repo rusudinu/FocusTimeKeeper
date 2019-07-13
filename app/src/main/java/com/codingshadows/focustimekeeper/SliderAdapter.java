@@ -13,25 +13,31 @@ import androidx.viewpager.widget.PagerAdapter;
 
 
 public class SliderAdapter extends PagerAdapter {
-    Context context;
-    LayoutInflater layoutInflater;
+    private Context context;
+    private LayoutInflater layoutInflater;
 
 
-    public SliderAdapter(Context context)
+    SliderAdapter(Context context)
     {
         this.context = context;
     }
 
     //arrays
-    public int[] slide_images = {
+    private int[] slide_images = {
+            R.drawable.cslogowhite,
+            R.drawable.cslogowhite,
             R.drawable.cslogowhite
     };
 
-    public String[] slide_headigns = {
+    private String[] slide_headigns = {
+            "Heading1",
+            "Heading1",
             "Heading1"
     };
 
-    public String[] slide_descr = {
+    private String[] slide_descr = {
+            "descr1",
+            "descr1",
             "descr1"
     };
 

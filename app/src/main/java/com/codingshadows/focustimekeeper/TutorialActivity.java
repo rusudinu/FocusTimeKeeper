@@ -3,6 +3,7 @@ package com.codingshadows.focustimekeeper;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -48,7 +49,13 @@ public class TutorialActivity extends AppCompatActivity {
         nextBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                slideViewPager.setCurrentItem(currentPage + 1);
+                if(nextBT.getText().toString().contains("inchide"))
+                {
+                    Intent intent = new Intent(TutorialActivity.this, MainMenuActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else slideViewPager.setCurrentItem(currentPage + 1);
             }
         });
     }
