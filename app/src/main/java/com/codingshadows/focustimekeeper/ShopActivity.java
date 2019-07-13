@@ -3,6 +3,7 @@ package com.codingshadows.focustimekeeper;
 import android.content.pm.ActivityInfo;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -28,47 +29,41 @@ public class ShopActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        hideAll();
 
         getData();
         ImageView imv = findViewById(R.id.rareFocusCoinImageView);
         imv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(focusPoints >= 200 && !focusCoins.contains("Archer coin"))
-                {
+                if (focusPoints >= 200 && !focusCoins.contains("Archer coin")) {
                     focusPoints = focusPoints - 200;
                     focusCoins = focusCoins + "Archer coin,";
                     pushData();
-                    Toast.makeText(ShopActivity.this, "Congrats!", Toast.LENGTH_SHORT).show();
                     getData();
                 }
             }
         });
     }
 
-    private void pushData()
-    {
+    private void pushData() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Users").document(getUID()).update("Focus points", focusPoints);
         db.collection("Users").document(getUID()).update("Focus coins", focusCoins);
     }
 
 
-
-    private void getData()
-    {
+    private void getData() {
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         try {
             db.collection("Users").document(getUID()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     focusPoints = Integer.valueOf(documentSnapshot.get("Focus points").toString());
-                    if(documentSnapshot.get("Focus coins") != null) {
+                    if (documentSnapshot.get("Focus coins") != null) {
                         focusCoins = documentSnapshot.get("Focus coins").toString();
-                    }
-                    else
-                    {
-                        db.collection("Users").document(getUID()).update("Focus coins","");
+                    } else {
+                        db.collection("Users").document(getUID()).update("Focus coins", "");
                     }
                     showAll();
                 }
@@ -83,20 +78,31 @@ public class ShopActivity extends AppCompatActivity {
         return user.getUid();
     }
 
-    private void showAll()
-    {
+    private void showAll() {
         TextView coinsTV = findViewById(R.id.focusPointsTextViewShop);
         coinsTV.setText("" + focusPoints);
 
         ImageView imv = findViewById(R.id.rareFocusCoinImageView);
-        if(focusCoins.contains("Archer coin"))
-        {
+        if (focusCoins.contains("Archer coin")) {
             TextView priceTV = findViewById(R.id.rareCoinPrice);
             priceTV.setVisibility(View.INVISIBLE);
             imv.setImageResource(R.drawable.rarefocuscoin);
 
+        } else
+        {
+            imv.setImageResource(R.drawable.rarefocuscoinlocked);
+            TextView priceTV = findViewById(R.id.rareCoinPrice);
+            priceTV.setVisibility(View.VISIBLE);
         }
-        else imv.setImageResource(R.drawable.rarefocuscoinlocked);
+
+        imv.setVisibility(View.VISIBLE);
+    }
+
+    private void hideAll() {
+        ImageView coinIMV = findViewById(R.id.rareFocusCoinImageView);
+        coinIMV.setVisibility(View.INVISIBLE);
+        TextView priceTV = findViewById(R.id.rareCoinPrice);
+        priceTV.setVisibility(View.INVISIBLE);
     }
 
 }
