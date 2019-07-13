@@ -97,7 +97,7 @@ public class PerformanceActivity extends AppCompatActivity {
                 tempCompleted = 0;
                 tempPercentage = 0;
 
-                new CountDownTimer(20, 1) { // astept sa se termine animatia de disparitie a calendarului
+                new CountDownTimer(20, 1) { // astept sa se termine animatia de disparitie a calendarului pentru a putea incepe "animatia" procentului
                     public void onTick(long millisUntilFinished) {
 
                     }
@@ -147,7 +147,7 @@ public class PerformanceActivity extends AppCompatActivity {
     double tempPercentage = 0;
     boolean dataFound = false;
 
-    private void showData() // animate it here too
+    private void showData() // animate
     {
         Log.e(tag, "show data");
         if (dataFound && (tempCompleted * 50 < activitiesCompleted * 50)) {
@@ -188,47 +188,6 @@ public class PerformanceActivity extends AppCompatActivity {
         }
     }
 
-    /*
-    private void showData2() {
-
-
-        for(int i=1; i<=totalActivities;i++)
-        {
-            tempTotal = i;
-            new CountDownTimer(1000, 1) {
-
-                public void onTick(long millisUntilFinished) {
-
-                }
-
-                public void onFinish() {
-
-                    if(tempCompleted < activitiesCompleted) {
-                        tempCompleted++;
-                    }
-                    tempPercentage = tempCompleted * 100 / tempTotal;
-                    String toDisplay = tempPercentage + " %" + "  (" + tempCompleted + "/" + tempTotal + ")" ;
-                    ptv.setText(toDisplay);
-                    progressBar.setProgress(tempCompleted);
-                    if(tempPercentage >=70)
-                    {
-                        progressBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
-                    }
-                    else if (tempPercentage >=50)
-                    {
-                        progressBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
-                    }
-                    else
-                    {
-                        progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
-                    }
-                }
-            }.start();
-        }
-    }
-*/
-
-
     private void showCalendar() {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
@@ -244,7 +203,7 @@ public class PerformanceActivity extends AppCompatActivity {
                 android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                 mDateSetListener,
                 year, month, day);
-        dialog.setTitle("Please select the date : ");
+        dialog.setTitle("Selecteaza o data: ");
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }

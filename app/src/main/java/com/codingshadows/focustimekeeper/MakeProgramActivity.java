@@ -312,7 +312,7 @@ public class MakeProgramActivity extends AppCompatActivity {
     private int activitiesTotal = 0;
     private boolean gotActivitiesData = false;
 
-    private void getActivitiesData(final String collectionID) // TODO THIS ?????
+    private void getActivitiesData(final String collectionID)
     {
         Log.e(tag, "getActivitiesData");
         final FirebaseFirestore db = FirebaseFirestore.getInstance();

@@ -17,7 +17,6 @@ public class ContactActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        //TODO CHECK THE LAYOUT
 
         ImageView websiteIMV = findViewById(R.id.companyWebsiteImageView);
         websiteIMV.setOnClickListener(new View.OnClickListener() {

@@ -28,14 +28,11 @@ public class ActivityDataFieldsActivity extends AppCompatActivity {
         final int activityNumber = Integer.valueOf(intent.getStringExtra("message"));
         String date = intent.getStringExtra("date");
 
-        //todo change the color of the thing that is selected
 
         //ImageView ivVectorImage = findViewById(R.id.friendsIcon);
         //ivVectorImage.setColorFilter(getResources().getColor(R.color.circleRed));
         //WindowManager.LayoutParams wmlp = getWindow().getAttributes();
         // wmlp.gravity = Gravity.TOP | Gravity.RIGHT;
-//TODO THE DRAWABLE NUMBER
-        //TODO PICK AUTOMATICALLY BY THE KEYWORD
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);

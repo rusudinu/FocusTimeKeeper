@@ -340,7 +340,6 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
                 getActivities(date);
             }
         });
-        //todo add it to the performance file for that date
         updatePerformance(stringDateServer);
     }
 

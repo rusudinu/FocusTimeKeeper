@@ -17,7 +17,7 @@ public class PermissionDetailsActivity extends AppCompatActivity {
         WebSettings webSettings = myWebView.getSettings();
 
         webSettings.setJavaScriptEnabled(true);
-        myWebView.loadUrl("https://codingshadows.com/permissions_details.html"); //TODO CHANGE THE URL HERE
+        myWebView.loadUrl("https://codingshadows.com/permissions_details.html");
 
         myWebView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url){

@@ -192,7 +192,6 @@ public class UserProfileActivity extends AppCompatActivity {
         }
     }
 
-    //TODO SPAWN ACHIEVEMENTS THERE
     private void showVerifiedBadge() {
         if (verified) {
             ImageView verifiedIMV = findViewById(R.id.verifiedImageView);

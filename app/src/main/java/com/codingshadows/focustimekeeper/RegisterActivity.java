@@ -155,7 +155,6 @@ public class RegisterActivity extends AppCompatActivity {
         userData.put("UserID", userID);
         userData.put("Email", email);
         userData.put("Username", username);
-        userData.put("Password", password);
         userData.put("Verified", false);
         userData.put("Achievements", "");
         userData.put("Badges", "");
