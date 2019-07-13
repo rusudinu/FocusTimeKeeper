@@ -22,21 +22,26 @@ public class SliderAdapter extends PagerAdapter {
         this.context = context;
     }
 
+
+    public static int getSize(){
+        return slide_headigns.length;
+    }
+
     //arrays
     private int[] slide_images = {
-            R.drawable.cslogowhite,
-            R.drawable.cslogowhite,
-            R.drawable.cslogowhite
+            R.drawable.cslogowhitewhite,
+            R.drawable.cslogowhitewhite,
+            R.drawable.cslogowhitewhite
     };
 
-    private String[] slide_headigns = {
-            "Heading1",
+    private static String[] slide_headigns = {
+            "Salut!",
             "Heading1",
             "Heading1"
     };
 
     private String[] slide_descr = {
-            "descr1",
+            "Ne bucura sa te vedem citind acest tutorial! \n Daca nu gasesti ceea ce te intereseaza aici, ne poti trimite un mesaj pe Facebook (@CodingShadows) sau un email (contact@codingshadows.com)",
             "descr1",
             "descr1"
     };

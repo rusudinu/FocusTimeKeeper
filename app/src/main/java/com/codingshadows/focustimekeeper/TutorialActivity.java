@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TutorialActivity extends AppCompatActivity {
 
@@ -61,12 +62,13 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
     public void addDotsIndicator(int position) {
-        dots = new TextView[3];
+        int count = SliderAdapter.getSize();
+        dots = new TextView[count];
         dotsLayout.removeAllViews();
         for (int i = 0; i < dots.length; i++) {
             dots[i] = new TextView(this);
             dots[i].setText(Html.fromHtml("&#8226;"));
-            dots[i].setTextSize(25);
+            dots[i].setTextSize(40);
             dots[i].setTextColor(getResources().getColor(R.color.backgroundWhite));
             dotsLayout.addView(dots[i]);
         }
