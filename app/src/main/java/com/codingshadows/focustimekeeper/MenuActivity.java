@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Point;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.Display;
 import android.view.Gravity;
@@ -102,7 +103,7 @@ public class MenuActivity extends AppCompatActivity {
         makeProgramTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 showMakeProgram();
+                showMakeProgram();
             }
         });
 
@@ -129,21 +130,19 @@ public class MenuActivity extends AppCompatActivity {
         overridePendingTransition(0, R.anim.exit);
     }
 
-    private void showTutorial(){
+    private void showTutorial() {
         Intent intent = new Intent(MenuActivity.this, TutorialActivity.class);
         startActivity(intent);
         finish();
     }
 
-    private void showPerformance()
-    {
+    private void showPerformance() {
         Intent intent = new Intent(MenuActivity.this, PerformanceActivity.class);
         startActivity(intent);
         finish();
     }
 
-    private void showMakeProgram()
-    {
+    private void showMakeProgram() {
         Intent intent = new Intent(MenuActivity.this, MakeProgramActivity.class);
         startActivity(intent);
         finish();
@@ -155,19 +154,17 @@ public class MenuActivity extends AppCompatActivity {
         finish();
     }
 
-private void showProfile()
-{
-    Intent intent = new Intent(MenuActivity.this, UserProfileActivity.class);
-    startActivity(intent);
-    finish();
-}
+    private void showProfile() {
+        Intent intent = new Intent(MenuActivity.this, UserProfileActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
-private void showFriendProfile()
-{
-    Intent intent = new Intent(MenuActivity.this, UserFriendProfileActivity.class);
-    startActivity(intent);
-    finish();
-}
+    private void showFriendProfile() {
+        Intent intent = new Intent(MenuActivity.this, UserFriendProfileActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 
     private void showSettings() {
@@ -182,8 +179,7 @@ private void showFriendProfile()
         finish();
     }
 
-    private void showShop()
-    {
+    private void showShop() {
         Intent intent = new Intent(MenuActivity.this, ShopActivity.class);
         startActivity(intent);
         finish();

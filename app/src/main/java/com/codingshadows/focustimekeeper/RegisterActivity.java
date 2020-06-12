@@ -122,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                    pushUserData(userID, email, serviceNumber, password);
+                    pushUserData(userID, email, serviceNumber);
                     user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -148,7 +148,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void pushUserData(String userID, String email , String username, String password)
+    private void pushUserData(String userID, String email , String username)
     {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String, Object> userData = new HashMap<>();
