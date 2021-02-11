@@ -25,7 +25,7 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.google.firebase:firebase-core:17.0.0'
     implementation 'com.google.firebase:firebase-auth:18.0.0'
-    implementation 'com.google.firebase:firebase-firestore:20.1.0'
+    implementation 'com.google.firebase:firebase-firestore:22.1.0'
     implementation 'com.google.firebase:firebase-storage:18.0.0'
     //noinspection GradleCompatible
     implementation 'com.google.android.material:material:1.0.0'
