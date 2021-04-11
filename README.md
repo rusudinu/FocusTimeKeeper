@@ -23,3 +23,10 @@ Focus Points represent the currency of our app. With the help of Focus Points yo
 
 📄 Friendly UI
 The app has a simple interface, with a black background to minimize the power consumption.
+
+![App Screenshot](https://github.com/rusudinu/FocusTimeKeeper/blob/master/app_screenshots/1.jpg?raw=true)
+![App Screenshot](https://github.com/rusudinu/FocusTimeKeeper/blob/master/app_screenshots/2.jpg?raw=true)
+![App Screenshot](https://github.com/rusudinu/FocusTimeKeeper/blob/master/app_screenshots/3.jpg?raw=true)
+![App Screenshot](https://github.com/rusudinu/FocusTimeKeeper/blob/master/app_screenshots/4.jpg?raw=true)
+![App Screenshot](https://github.com/rusudinu/FocusTimeKeeper/blob/master/app_screenshots/5.jpg?raw=true)
+![App Screenshot](https://github.com/rusudinu/FocusTimeKeeper/blob/master/app_screenshots/6.jpg?raw=true)
