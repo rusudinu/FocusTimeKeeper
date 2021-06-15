@@ -1,7 +1,7 @@
 # Focus: Time Keeper
 
 📄 Daily Schedule 
-With the help of the daily agneda, you can organize with ease! Create a preset for each day of the week or a custom program for a certain day of the year.
+With the help of the daily agenda, you can organize with ease! Create a preset for each day of the week or a custom program for a certain day of the year.
 
 📄 Focus Mode 
 If you want to get rid of the phone addiction, you can activate this mode. When you use an app like Whatsapp, Facebook, Reddit, etc., you will be notified regarding the fact that you are using your phone. The longer you can resist, the more Focus Points you will get.
@@ -13,7 +13,7 @@ With the help of the Performance feature, you can see how well you did for a cer
 Every user has a profile! On your profile page you can see data like: Items Owned, Achievements, The Maximum Focus Time, etc.. Compete with your friends!
 
 📄 Friends
-You can find your friends in the app, with the help of their email adress.
+You can find your friends in the app, with the help of their email address.
 
 📄 Achievements
 The app has a lot of Achievements. The longer you can resist, the better the achievement will be!
