@@ -6,8 +6,8 @@ android {
         applicationId "com.codingshadows.focustimekeeper"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 69
-        versionName "2.6.0"
+        versionCode 70
+        versionName "2.6.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
