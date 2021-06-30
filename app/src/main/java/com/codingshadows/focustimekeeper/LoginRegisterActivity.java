@@ -2,8 +2,10 @@ package com.codingshadows.focustimekeeper;
 
 import android.content.Context;
 import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -40,24 +42,9 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
 
         checkForExisting();
-        resetPasswordBT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetPassword();
-            }
-        });
-        loginBT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login();
-            }
-        });
-        registerBT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                register();
-            }
-        });
+        resetPasswordBT.setOnClickListener(v -> resetPassword());
+        loginBT.setOnClickListener(v -> login());
+        registerBT.setOnClickListener(v -> register());
     }
 
     private void login() {
@@ -203,17 +190,14 @@ public class LoginRegisterActivity extends AppCompatActivity {
         displayProgressTV.setVisibility(View.VISIBLE);
     }
 
-    private void resetPassword()
-    {
+    private void resetPassword() {
         String mail = "";
 
         final EditText usernameET = findViewById(R.id.emailEditText_REGISTER);
-        if(usernameET.getText().toString().equals("") || usernameET.getText().toString().equals(" "))
-        {
+        if (usernameET.getText().toString().equals("") || usernameET.getText().toString().equals(" ")) {
             usernameET.setError("Va rog sa introduceti adresa de mail!");
             return;
-        }else
-        {
+        } else {
             mail = usernameET.getText().toString().trim();
             FirebaseAuth.getInstance().sendPasswordResetEmail(mail)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
