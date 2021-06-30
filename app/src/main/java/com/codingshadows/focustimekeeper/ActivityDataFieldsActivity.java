@@ -42,10 +42,7 @@ public class ActivityDataFieldsActivity extends AppCompatActivity {
         getWindow().setLayout((int)(width*.8), (int)(height*.7));
 
         TextView titleTV = findViewById(R.id.titleAddDataTextView);
-        titleTV.setText("Adauga o activitate noua" + '\n' + date);
-
-
-
+        titleTV.setText("Adaugă o activitate nouă\n" + date);
 
 
         //region select hour
