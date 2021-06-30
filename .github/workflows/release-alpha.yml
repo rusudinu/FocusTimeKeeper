@@ -49,6 +49,6 @@ jobs:
         with:
           serviceAccountJson: service_account.json
           packageName: com.jshvarts.flows
-          releaseFile: app/build/outputs/bundle/release/app-release.aab
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab
           track: alpha
           whatsNewDirectory: distribution/
