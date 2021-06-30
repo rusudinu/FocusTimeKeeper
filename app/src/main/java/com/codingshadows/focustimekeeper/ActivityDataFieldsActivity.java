@@ -4,7 +4,9 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
@@ -39,7 +41,7 @@ public class ActivityDataFieldsActivity extends AppCompatActivity {
         int width = size.x;
         int height = size.y;
         getWindow().setElevation(10);
-        getWindow().setLayout((int)(width*.8), (int)(height*.7));
+        getWindow().setLayout((int) (width * .8), (int) (height * .7));
 
         TextView titleTV = findViewById(R.id.titleAddDataTextView);
         titleTV.setText("Adaugă o activitate nouă\n" + date);
@@ -50,12 +52,7 @@ public class ActivityDataFieldsActivity extends AppCompatActivity {
         startHourET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityDataFieldsActivity.this,R.style.Theme_AppCompat_DayNight_DarkActionBar, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-                        startHourET.setText(hourOfDay+ ":" + checkDigit(minutes));
-                    }
-                }, 0, 0, true);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityDataFieldsActivity.this, R.style.Theme_AppCompat_DayNight_DarkActionBar, (timePicker, hourOfDay, minutes) -> startHourET.setText(hourOfDay + ":" + checkDigit(minutes)), 0, 0, true);
                 timePickerDialog.setTitle("Activitatea incepe la: ");
                 timePickerDialog.show();
             }
@@ -64,14 +61,8 @@ public class ActivityDataFieldsActivity extends AppCompatActivity {
         startHourET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(startHourET.isFocused())
-                {
-                    TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityDataFieldsActivity.this,R.style.Theme_AppCompat_DayNight_DarkActionBar, new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-                            startHourET.setText(hourOfDay+ ":" + checkDigit(minutes));
-                        }
-                    }, 0, 0, true);
+                if (startHourET.isFocused()) {
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityDataFieldsActivity.this, R.style.Theme_AppCompat_DayNight_DarkActionBar, (timePicker, hourOfDay, minutes) -> startHourET.setText(hourOfDay + ":" + checkDigit(minutes)), 0, 0, true);
                     timePickerDialog.setTitle("Activitatea incepe la: ");
                     timePickerDialog.show();
                 }
@@ -85,7 +76,7 @@ public class ActivityDataFieldsActivity extends AppCompatActivity {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityDataFieldsActivity.this, R.style.Theme_AppCompat_DayNight_DarkActionBar, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-                        endHourET.setText(hourOfDay+ ":" + checkDigit(minutes));
+                        endHourET.setText(hourOfDay + ":" + checkDigit(minutes));
                     }
                 }, 0, 0, true);
                 timePickerDialog.setTitle("Activitatea se termina la: ");
@@ -95,12 +86,11 @@ public class ActivityDataFieldsActivity extends AppCompatActivity {
         endHourET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(endHourET.hasFocus())
-                {
+                if (endHourET.hasFocus()) {
                     TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityDataFieldsActivity.this, R.style.Theme_AppCompat_DayNight_DarkActionBar, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-                            endHourET.setText(hourOfDay+ ":" + checkDigit(minutes));
+                            endHourET.setText(hourOfDay + ":" + checkDigit(minutes));
                         }
                     }, 0, 0, true);
                     timePickerDialog.setTitle("Activitatea se termina la: ");
@@ -116,7 +106,7 @@ public class ActivityDataFieldsActivity extends AppCompatActivity {
         addActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText detailsET  = findViewById(R.id.detaliiEditText);
+                EditText detailsET = findViewById(R.id.detaliiEditText);
                 String details = detailsET.getText().toString();
 
                 EditText startHourET = findViewById(R.id.startHourEditText);
@@ -138,12 +128,12 @@ public class ActivityDataFieldsActivity extends AppCompatActivity {
             }
         });
     }
+
     private String checkDigit(int number) {
         return number <= 9 ? "0" + number : String.valueOf(number);
     }
 
-    private void changeSelectedImage()
-    {
+    private void changeSelectedImage() {
 
     }
 }
